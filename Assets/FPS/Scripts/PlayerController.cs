@@ -1,7 +1,7 @@
 using System;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
     
-    private float mouseSensitivity = 400f;
-    private Transform playerCamera;
+    [SerializeField] private float mouseSensitivity = 400f;
+    [SerializeField] private Transform playerCamera;
     private float xRotation = 0f;
     private Vector2 lookInput;
 
@@ -26,12 +26,15 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerInput = new PlayerInput();
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckGround();
+        HandleMouseLook();
     }
 
     void FixedUpdate()
@@ -56,6 +59,23 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = inputValue.Get<Vector2>();
     }   
+
+    void OnLook(InputValue inputValue)
+    {
+        lookInput = inputValue.Get<Vector2>();
+    }
+
+    void HandleMouseLook()
+    {
+        float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
+        float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;
+
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90, 90);
+        playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        transform.Rotate(Vector3.up * mouseX);
+        transform.
+    }
 
     void MovePlayer()
     {

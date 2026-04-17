@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23697610053470764}
   m_Layer: 0
   m_Name: Hammer
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 23749735145796272}
   m_Layer: 0
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,9 +220,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4952727429218122}
+  - component: {fileID: 7956147897578276938}
   m_Layer: 0
   m_Name: M1911
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,10 +241,32 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1535193332327005430}
   - {fileID: 4314784194266678}
   - {fileID: 4827498857130004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7956147897578276938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694449805434718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e5394b387098c44a7e5394350e5928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunController
+  reloadTime: 1
+  fireRate: 4
+  magazineSize: 10
+  maxAmmo: 60
+  bullet: {fileID: 600757924290632880, guid: 5a1a274747a523a4fbdb0ea30888f755, type: 3}
+  bulletSpawnPoint: {fileID: 1535193332327005430}
+  recoilDistance: 0.1
+  recoilReturnSpeed: 0.12
+  weaponFlash: {fileID: 1682709173782955669, guid: a9b67950593526d4d9729cfa7347044c, type: 3}
 --- !u!1 &1748277932983872
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +280,7 @@ GameObject:
   - component: {fileID: 23769447271555568}
   m_Layer: 0
   m_Name: M1911
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -351,7 +374,7 @@ GameObject:
   - component: {fileID: 23508060292273042}
   m_Layer: 0
   m_Name: Slide
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -441,7 +464,7 @@ GameObject:
   - component: {fileID: 23719986941454460}
   m_Layer: 0
   m_Name: Magazin
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -518,3 +541,34 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1415093103623611853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1535193332327005430}
+  m_Layer: 0
+  m_Name: BulletSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1535193332327005430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415093103623611853}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0017, y: 0.0211, z: -0.1667}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4952727429218122}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
