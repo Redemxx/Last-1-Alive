@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class NormalZombieController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private int health = 28;
+
+    private Rigidbody rb;
+    private Vector3 targetPosition = Vector3.zero;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
