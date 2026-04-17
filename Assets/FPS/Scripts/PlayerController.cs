@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float runSpeed = 9f;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundDistance = 0.4f;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Vector2 moveInput;
     private bool isGrounded;
+    private bool isRunning;
     private PlayerInput playerInput;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -50,6 +52,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnRun()
+    {
+        if (isGrounded)
+            isRunning = true;
+    }
+
+    void OnRunEnd()
+    {
+        isRunning = false;
+    }
+
     void CheckGround()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -74,13 +87,12 @@ public class PlayerController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90, 90);
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
-        //transform.
     }
 
     void MovePlayer()
     {
         Vector3 direction = transform.right * moveInput.x + transform.forward * moveInput.y;
         direction.Normalize();
-        rb.linearVelocity = new Vector3(direction.x * moveSpeed, rb.linearVelocity.y, direction.z * moveSpeed);
+        rb.linearVelocity = new Vector3(direction.x * (isRunning?runSpeed:moveSpeed), rb.linearVelocity.y, direction.z * (isRunning ? runSpeed : moveSpeed));
     }
 }

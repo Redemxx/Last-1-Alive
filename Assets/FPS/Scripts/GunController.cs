@@ -5,14 +5,20 @@ using System;
 public class GunController : MonoBehaviour
 {
     [SerializeField] private float reloadTime = 1f;
+    [SerializeField] private Vector3 reloadRotationOffset = new Vector3(66, 50, 50);
     [SerializeField] private float fireRate = 0.5f;
     [SerializeField] private int magazineSize = 10;
+    [SerializeField] private float magPullDistance = 0.3f;
+    [SerializeField] private Vector3 magPullDirection = new Vector3(0, -1, 0);
     [SerializeField] private int maxAmmo = 60;
+    [SerializeField] private int baseDamage = 1;
     [SerializeField] private GameObject bullet;
-    [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private float recoilDistance = 0.1f;
     [SerializeField] private float recoilReturnSpeed = 0.12f;
     [SerializeField] private GameObject weaponFlash;
+
+    private Transform bulletSpawnPoint;
+    private GameObject mag;
 
     private int currentMag;
     private int currentAmmo;
@@ -20,7 +26,8 @@ public class GunController : MonoBehaviour
     private float nextTimeToFire = 0f;
     private Quaternion initialRotation;
     private Vector3 initialPosition;
-    private Vector3 reloadRotationOffset = new Vector3(66, 50, 50);
+    private Vector3 initialMagPosition;
+    
 
     void Start()
     {
@@ -28,6 +35,10 @@ public class GunController : MonoBehaviour
         currentAmmo = maxAmmo;
         initialPosition = transform.localPosition;
         initialRotation = transform.localRotation;
+
+        bulletSpawnPoint = transform.Find("BulletSpawnPoint");
+        mag = transform.Find("Mag").gameObject;
+        initialMagPosition = mag.transform.localPosition;
     }
 
     public void Shoot()
@@ -45,7 +56,10 @@ public class GunController : MonoBehaviour
         currentMag--;
 
         Debug.Log("Bang! Bullets left in mag: " + currentMag);
-        Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        GameObject newBullet = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        BulletController bc = newBullet.GetComponent<BulletController>();
+        bc.damage = baseDamage;
+
         GameObject flash = Instantiate(weaponFlash, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         flash.transform.SetParent(bulletSpawnPoint.transform);
 
@@ -65,6 +79,7 @@ public class GunController : MonoBehaviour
         isReloading = true;
 
         Quaternion targetRotation = Quaternion.Euler(initialRotation.eulerAngles + reloadRotationOffset);
+        Vector3 magTarget = mag.transform.localPosition + magPullDirection * magPullDistance;
         float halfReload = reloadTime / 2f;
         float t = 0f;
 
@@ -72,6 +87,7 @@ public class GunController : MonoBehaviour
         {
             t += Time.deltaTime;
             transform.localRotation = Quaternion.Slerp(initialRotation, targetRotation, t / halfReload);
+            mag.transform.localPosition = Vector3.Lerp(initialMagPosition, magTarget, t / halfReload);
             yield return null;
         }
 
@@ -81,6 +97,7 @@ public class GunController : MonoBehaviour
         {
             t += Time.deltaTime;
             transform.localRotation = Quaternion.Slerp(targetRotation, initialRotation, t / halfReload);
+            mag.transform.localPosition = Vector3.Lerp(magTarget, initialMagPosition, t / halfReload);
             yield return null;
         }
 
@@ -99,12 +116,13 @@ public class GunController : MonoBehaviour
     private IEnumerator Recoil()
     {
         Vector3 recoilTarget = initialPosition + new Vector3(0, 0, recoilDistance);
-        float t = 0f; 
+        float t = 0f;
 
-        while (t < recoilReturnSpeed)
+        float kick = 0.1f;
+        while (t < kick)
         {
             t += Time.deltaTime;
-            transform.localPosition = Vector3.Lerp(initialPosition, recoilTarget, t);
+            transform.localPosition = Vector3.Lerp(initialPosition, recoilTarget, 1 / kick);
             yield return null;
         }
 

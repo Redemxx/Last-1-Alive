@@ -281,9 +281,10 @@ GameObject:
   - component: {fileID: 4053999043310118}
   - component: {fileID: 33265667909663144}
   - component: {fileID: 23745275597904220}
+  - component: {fileID: 1637406298244131407}
   m_Layer: 0
   m_Name: M107
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -296,7 +297,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829597508155286}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -304,6 +305,7 @@ Transform:
   - {fileID: 4306242400190624}
   - {fileID: 4855566107710416}
   - {fileID: 4594675243249436}
+  - {fileID: 5294400180380618776}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &33265667909663144
@@ -363,3 +365,56 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1637406298244131407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829597508155286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e5394b387098c44a7e5394350e5928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunController
+  reloadTime: 3
+  fireRate: 4
+  magazineSize: 10
+  maxAmmo: 80
+  baseDamage: 16
+  bullet: {fileID: 600757924290632880, guid: 5a1a274747a523a4fbdb0ea30888f755, type: 3}
+  bulletSpawnPoint: {fileID: 5294400180380618776}
+  recoilDistance: 0.2
+  recoilReturnSpeed: 0.2
+  weaponFlash: {fileID: 1682709173782955669, guid: a9b67950593526d4d9729cfa7347044c, type: 3}
+--- !u!1 &4058069646759269982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5294400180380618776}
+  m_Layer: 0
+  m_Name: BulletSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5294400180380618776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058069646759269982}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.027, z: -0.654}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4053999043310118}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

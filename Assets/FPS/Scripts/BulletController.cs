@@ -4,6 +4,7 @@ public class BulletController : MonoBehaviour
 {
     public float speed = 20f;
     public float lifeTime = 3f;
+    public int damage = 1;
     
     private Rigidbody rb;
 
@@ -11,6 +12,7 @@ public class BulletController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.linearVelocity = -transform.forward * speed;
+        rb.mass = damage / 10f;
         Destroy(gameObject, lifeTime);
     }
 

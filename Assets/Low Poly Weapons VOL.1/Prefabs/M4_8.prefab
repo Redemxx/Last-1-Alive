@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4035219142733080}
   - component: {fileID: 33699190840813150}
   - component: {fileID: 23280471604157296}
+  - component: {fileID: 8961328770877827089}
   m_Layer: 0
   m_Name: M4_8
   m_TagString: Untagged
@@ -36,6 +37,7 @@ Transform:
   - {fileID: 4162624857276890}
   - {fileID: 4156744137869968}
   - {fileID: 4886225909495156}
+  - {fileID: 1875625327924982474}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &33699190840813150
@@ -95,6 +97,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8961328770877827089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117582899397640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e5394b387098c44a7e5394350e5928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunController
+  reloadTime: 1
+  fireRate: 0.75
+  magazineSize: 10
+  maxAmmo: 60
+  baseDamage: 9
+  bullet: {fileID: 600757924290632880, guid: 5a1a274747a523a4fbdb0ea30888f755, type: 3}
+  bulletSpawnPoint: {fileID: 1875625327924982474}
+  recoilDistance: 0.02
+  recoilReturnSpeed: 0.06
+  weaponFlash: {fileID: 1682709173782955669, guid: a9b67950593526d4d9729cfa7347044c, type: 3}
 --- !u!1 &1426050648627750
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,3 +569,34 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3893678851344066413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1875625327924982474}
+  m_Layer: 0
+  m_Name: BulletSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1875625327924982474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3893678851344066413}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0585, z: -0.3385}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4035219142733080}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

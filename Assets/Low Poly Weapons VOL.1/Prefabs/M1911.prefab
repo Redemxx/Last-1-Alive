@@ -258,10 +258,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e5394b387098c44a7e5394350e5928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunController
-  reloadTime: 1
+  reloadTime: 1.6
   fireRate: 4
   magazineSize: 10
   maxAmmo: 60
+  baseDamage: 7
   bullet: {fileID: 600757924290632880, guid: 5a1a274747a523a4fbdb0ea30888f755, type: 3}
   bulletSpawnPoint: {fileID: 1535193332327005430}
   recoilDistance: 0.1

@@ -1874,7 +1874,7 @@ Transform:
   m_GameObject: {fileID: 7571549124246640283}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.14499, y: 1.77101, z: 0.07}
+  m_LocalPosition: {x: 0, y: 1.77101, z: 0.0193}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1912,7 +1912,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
+  near clip plane: 0.12
   far clip plane: 1000
   field of view: 100
   orthographic: 0
@@ -2366,7 +2366,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &4008218192773989024
 MonoBehaviour:
@@ -2417,6 +2417,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  mouseSensitivity: 400
+  playerCamera: {fileID: 5379634160851536406}
 --- !u!114 &1431751502004110078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2756,6 +2758,10 @@ PrefabInstance:
     - target: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7956147897578276938, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+      propertyPath: recoilDistance
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
