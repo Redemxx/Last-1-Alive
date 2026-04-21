@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Gun
   - PlayerMesh
+  - CinemachineTarget
+  - Zombie
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -13,9 +16,9 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Players
+  - Zombies
+  - Munitions
   - 
   - 
   - 

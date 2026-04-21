@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1319443917382809111}
   - component: {fileID: 4203870221379276917}
   - component: {fileID: 2839881930712408147}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BulletController
   speed: 32
   lifeTime: 3
+  damage: 1
 --- !u!65 &1319443917382809111
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -219,7 +220,7 @@ GameObject:
   - component: {fileID: 4739143607503513962}
   - component: {fileID: 1593178205596461374}
   - component: {fileID: 8596014769099808345}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
