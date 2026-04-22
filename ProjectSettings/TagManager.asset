@@ -19,9 +19,9 @@ TagManager:
   - Players
   - Zombies
   - Munitions
-  - 
-  - 
-  - 
+  - StaticObjects
+  - Breakables
+  - Triggers
   - 
   - 
   - 

@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float runSpeed = 9f;
+    [SerializeField] private float maxStamina = 50 * 5;
+    [SerializeField] private float staminaRegenRate = 20;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundDistance = 0.4f;
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool isRunning;
     private PlayerInput playerInput;
+    private float stamina;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +33,7 @@ public class PlayerController : MonoBehaviour
         playerInput = new PlayerInput();
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
+        stamina = maxStamina;
     }
 
     // Update is called once per frame
@@ -41,7 +45,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        Debug.Log(stamina);
         MovePlayer();
+
+        if (!isRunning && stamina < maxStamina)
+        {
+            stamina += staminaRegenRate * Time.deltaTime;
+            if (stamina > maxStamina) stamina = maxStamina;
+        }
     }
 
     void OnJump()
@@ -54,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     void OnRun()
     {
-        if (isGrounded)
+        if (isGrounded && stamina > 0)
             isRunning = true;
     }
 
@@ -93,6 +104,16 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 direction = transform.right * moveInput.x + transform.forward * moveInput.y;
         direction.Normalize();
-        rb.linearVelocity = new Vector3(direction.x * (isRunning?runSpeed:moveSpeed), rb.linearVelocity.y, direction.z * (isRunning ? runSpeed : moveSpeed));
+
+        if (isRunning) stamina -= 1;
+
+        if (stamina < 0)
+        {
+            stamina = 0;
+            isRunning = false;
+        }
+
+        float movementSpeed = isRunning ? runSpeed : moveSpeed;
+        rb.linearVelocity = new Vector3(direction.x * movementSpeed, rb.linearVelocity.y, direction.z * movementSpeed);
     }
 }

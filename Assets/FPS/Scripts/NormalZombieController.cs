@@ -8,8 +8,11 @@ using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Lumin;
 using static Unity.VisualScripting.Member;
 using static UnityEditor.FilePathAttribute;
+
+[RequireComponent(typeof(Health))]
 
 public class NormalZombieController : MonoBehaviour
 {
@@ -22,10 +25,13 @@ public class NormalZombieController : MonoBehaviour
         DEAD
     };
 
+    [SerializeField] private AudioClip zombieScream;
+
     private Health health;
     private NavMeshAgent nav;
     private Animator animator;
     private Rigidbody rb;
+    private AudioSource audioSource;
 
     private GameObject target;
     private Vector3 targetPosition = Vector3.zero;
@@ -45,6 +51,7 @@ public class NormalZombieController : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0);
+        audioSource = GetComponent<AudioSource>();
 
         animator.Play("Idle");
 
@@ -116,10 +123,13 @@ public class NormalZombieController : MonoBehaviour
     {
         colliders.Add(other);
 
+        if (target != null) return;
+
         if (other.CompareTag("Player"))
         {
             target = other.gameObject;
             SwitchState(State.SCREAMING);
+            audioSource.PlayOneShot(zombieScream);
             animator.SetBool("Engaged", true);
 
             // Alert nearby zombies
@@ -131,7 +141,6 @@ public class NormalZombieController : MonoBehaviour
                     if (zombieController != null)
                     {
                         StartCoroutine(zombieController.Engage(target));
-                        UnityEngine.Debug.Log("Zombie Engaged");
                     }
                 }
             }
@@ -145,7 +154,6 @@ public class NormalZombieController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        return;
     }
 
     public void Die(GameObject source)
@@ -162,5 +170,6 @@ public class NormalZombieController : MonoBehaviour
     {
         nav.SetDestination(source.transform.position);
         animator.SetBool("Moving", true);
+        health.onDamaged -= OnAlerted;
     }
 }

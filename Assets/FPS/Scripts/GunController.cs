@@ -16,11 +16,14 @@ public class GunController : MonoBehaviour
     [SerializeField] private float recoilDistance = 0.1f;
     [SerializeField] private float recoilReturnSpeed = 0.12f;
     [SerializeField] private GameObject weaponFlash;
+    [SerializeField] private AudioClip gunSound;
+    [SerializeField] private AudioClip hitSound;
+    [SerializeField] private AudioClip reloadSound;
 
     private Transform bulletSpawnPoint;
-    private Transform flashSpawnPoint;
     private GameObject mag;
     private Camera playerCam;
+    private AudioSource internalSound;
 
     private int currentMag;
     private int currentAmmo;
@@ -29,20 +32,23 @@ public class GunController : MonoBehaviour
     private Quaternion initialRotation;
     private Vector3 initialPosition;
     private Vector3 initialMagPosition;
+    private LayerMask hitMask;
     
 
     void Start()
     {
         playerCam = GetComponentInParent<Camera>();
+        internalSound = GetComponentInParent<AudioSource>();
         currentMag = magazineSize;
         currentAmmo = maxAmmo;
         initialPosition = transform.localPosition;
         initialRotation = transform.localRotation;
 
         bulletSpawnPoint = transform.Find("BulletSpawnPoint");
-        flashSpawnPoint = transform.Find("FlashSpawnPoint");
         mag = transform.Find("Mag").gameObject;
         initialMagPosition = mag.transform.localPosition;
+
+        hitMask = LayerMask.GetMask("Zombies", "Breakables");
     }
 
     public void Shoot()
@@ -59,22 +65,26 @@ public class GunController : MonoBehaviour
         nextTimeToFire = Time.time + 1f / fireRate;
         currentMag--;
 
-        Debug.Log("Bang! Bullets left in mag: " + currentMag);
+        internalSound.PlayOneShot(gunSound);
+
         Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
 
-        GameObject flash = Instantiate(weaponFlash, flashSpawnPoint.position, flashSpawnPoint.rotation);
-        flash.transform.SetParent(flashSpawnPoint.transform);
+        GameObject flash = Instantiate(weaponFlash, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        flash.transform.SetParent(bulletSpawnPoint.transform);
 
         Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, hitMask))
         {
+            UnityEngine.Debug.Log("Hit: " + hit.collider.name);
             Health target = hit.collider.GetComponent<Health>();
             if (target != null)
             {
+                UnityEngine.Debug.Log("Dealing damage to: " + hit.collider.name);
                 target.TakeDamage(gameObject, baseDamage);
+                internalSound.PlayOneShot(hitSound);
             }
         }
+
 
         StopCoroutine(nameof(Recoil));
         StartCoroutine(nameof(Recoil));
@@ -90,6 +100,7 @@ public class GunController : MonoBehaviour
         if (ammoToLoad == 0) yield break;
 
         isReloading = true;
+        internalSound.PlayOneShot(reloadSound);
 
         Quaternion targetRotation = Quaternion.Euler(initialRotation.eulerAngles + reloadRotationOffset);
         Vector3 magTarget = mag.transform.localPosition + magPullDirection * magPullDistance;
