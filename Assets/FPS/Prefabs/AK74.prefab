@@ -290,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GunController
   reloadTime: 1
   reloadRotationOffset: {x: 66, y: 50, z: 50}
-  fireRate: 4
+  fireRate: 7
   magazineSize: 30
   magPullDistance: 0.3
   magPullDirection: {x: 0, y: -1, z: 0}

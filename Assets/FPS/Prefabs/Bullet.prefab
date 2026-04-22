@@ -48,9 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf0717170053384ba03f8e811f24508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletController
-  speed: 32
+  speed: 90
   lifeTime: 3
   damage: 1
+  sourcePoint: {x: 0, y: 0, z: 0}
 --- !u!65 &1319443917382809111
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70,7 +71,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.01, y: 0.01, z: 0.02}
+  m_Size: {x: 0.019948753, y: 0.023908837, z: 0.031326957}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4203870221379276917
 Rigidbody:
@@ -80,7 +81,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 600757924290632880}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -91,7 +92,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -148,7 +149,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 0.01
+  m_Time: 0.004
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -170,7 +171,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.94854206, b: 0.7169812, a: 1}
+      key0: {r: 0.46226418, g: 0.4232879, b: 0.24639553, a: 1}
       key1: {r: 1, g: 0.83606315, b: 0.09433961, a: 0}
       key2: {r: 1, g: 1, b: 1, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -202,7 +203,7 @@ TrailRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 0
-    textureScale: {x: 0.02, y: 0.02}
+    textureScale: {x: 0.01, y: 0.01}
     shadowBias: 0.5
     generateLightingData: 1
   m_MinVertexDistance: 0.1
@@ -237,7 +238,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.7071079}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.004, y: 0.004, z: 0.004}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5716113446068756779}

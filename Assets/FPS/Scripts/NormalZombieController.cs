@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.AI;
+using static Unity.VisualScripting.Member;
 using static UnityEditor.FilePathAttribute;
 
 public class NormalZombieController : MonoBehaviour
@@ -20,8 +21,8 @@ public class NormalZombieController : MonoBehaviour
         ATTACKING,
         DEAD
     };
-    [SerializeField] private int health = 28;
 
+    private Health health;
     private NavMeshAgent nav;
     private Animator animator;
     private Rigidbody rb;
@@ -36,6 +37,10 @@ public class NormalZombieController : MonoBehaviour
 
     void Start()
     {
+        health = GetComponent<Health>();
+        health.onDeath += Die;
+        health.onDamaged += OnAlerted;
+
         nav = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
@@ -140,26 +145,22 @@ public class NormalZombieController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            UnityEngine.Debug.Log("Zombie hit by bullet");
-            BulletController bullet = collision.gameObject.GetComponent<BulletController>();
-            health -= bullet.damage;
+        return;
+    }
 
-            if (health <= 0)
-            {
-                SwitchState(State.DEAD);
-                animator.SetTrigger("Die");
-                nav.isStopped = true;
-                rb.isKinematic = true;
-                GetComponent<Collider>().enabled = false;
-                colliders.Clear();
-            }
-            else
-            {
-                nav.SetDestination(bullet.sourcePoint);
-                animator.SetBool("Moving", true);
-            }
-        }
+    public void Die(GameObject source)
+    {
+        SwitchState(State.DEAD);
+        animator.SetTrigger("Die");
+        nav.isStopped = true;
+        rb.isKinematic = true;
+        GetComponent<Collider>().enabled = false;
+        colliders.Clear();
+    }
+
+    public void OnAlerted(GameObject source)
+    {
+        nav.SetDestination(source.transform.position);
+        animator.SetBool("Moving", true);
     }
 }

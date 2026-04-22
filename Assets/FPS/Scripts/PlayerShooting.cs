@@ -3,9 +3,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
-    [SerializeField] private GameObject holder;
+    public GameObject holder;
+    public GunController gun;
 
-    private GunController gun;
     private bool isShooting = false;
     private PlayerInput playerInput;
 

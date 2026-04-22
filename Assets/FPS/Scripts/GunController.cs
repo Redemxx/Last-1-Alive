@@ -18,7 +18,9 @@ public class GunController : MonoBehaviour
     [SerializeField] private GameObject weaponFlash;
 
     private Transform bulletSpawnPoint;
+    private Transform flashSpawnPoint;
     private GameObject mag;
+    private Camera playerCam;
 
     private int currentMag;
     private int currentAmmo;
@@ -31,12 +33,14 @@ public class GunController : MonoBehaviour
 
     void Start()
     {
+        playerCam = GetComponentInParent<Camera>();
         currentMag = magazineSize;
         currentAmmo = maxAmmo;
         initialPosition = transform.localPosition;
         initialRotation = transform.localRotation;
 
         bulletSpawnPoint = transform.Find("BulletSpawnPoint");
+        flashSpawnPoint = transform.Find("FlashSpawnPoint");
         mag = transform.Find("Mag").gameObject;
         initialMagPosition = mag.transform.localPosition;
     }
@@ -56,12 +60,21 @@ public class GunController : MonoBehaviour
         currentMag--;
 
         Debug.Log("Bang! Bullets left in mag: " + currentMag);
-        GameObject newBullet = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        BulletController bc = newBullet.GetComponent<BulletController>();
-        bc.damage = baseDamage;
+        Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
 
-        GameObject flash = Instantiate(weaponFlash, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        flash.transform.SetParent(bulletSpawnPoint.transform);
+        GameObject flash = Instantiate(weaponFlash, flashSpawnPoint.position, flashSpawnPoint.rotation);
+        flash.transform.SetParent(flashSpawnPoint.transform);
+
+        Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        {
+            Health target = hit.collider.GetComponent<Health>();
+            if (target != null)
+            {
+                target.TakeDamage(gameObject, baseDamage);
+            }
+        }
 
         StopCoroutine(nameof(Recoil));
         StartCoroutine(nameof(Recoil));
