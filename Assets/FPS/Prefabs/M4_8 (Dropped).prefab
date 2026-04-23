@@ -14,9 +14,12 @@ GameObject:
   - component: {fileID: 1402772745971724874}
   - component: {fileID: -6553190085536607377}
   - component: {fileID: 2634932732772364367}
+  - component: {fileID: 6227886248401087581}
+  - component: {fileID: -5917508628033922327}
+  - component: {fileID: 2197726432801266840}
   m_Layer: 0
   m_Name: M4_8 (Dropped)
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -167,6 +170,67 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: -0.004013397, y: 0.008912884, z: 0.023460403}
+--- !u!114 &6227886248401087581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117582899397640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 826f5137235b4b246ba8a78441fb740e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pickup
+  highlightMaterial: {fileID: 2100000, guid: ad9f1e19c4cde2d4c822a67a4ae301d2, type: 2}
+  weaponPrefab: {fileID: 1117582899397640, guid: 689946d975a0e55449b1e7ae41933e73, type: 3}
+  lookRange: 3
+--- !u!114 &-5917508628033922327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117582899397640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: dcbb4f8d98a10fb4a964e5adc9e09384, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: OnFoot
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &2197726432801266840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117582899397640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58deec2e023211647b0988aa7d939f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunState
+  magazineSize: 32
+  maxAmmo: 384
+  currentMag: 0
+  currentAmmo: 0
 --- !u!1 &1426050648627750
 GameObject:
   m_ObjectHideFlags: 0

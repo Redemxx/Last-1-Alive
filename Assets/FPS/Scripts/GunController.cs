@@ -7,40 +7,40 @@ public class GunController : MonoBehaviour
     [SerializeField] private float reloadTime = 1f;
     [SerializeField] private Vector3 reloadRotationOffset = new Vector3(66, 50, 50);
     [SerializeField] private float fireRate = 0.5f;
-    [SerializeField] private int magazineSize = 10;
     [SerializeField] private float magPullDistance = 0.3f;
     [SerializeField] private Vector3 magPullDirection = new Vector3(0, -1, 0);
-    [SerializeField] private int maxAmmo = 60;
     [SerializeField] private int baseDamage = 1;
     [SerializeField] private GameObject bullet;
     [SerializeField] private float recoilDistance = 0.1f;
     [SerializeField] private float recoilReturnSpeed = 0.12f;
+    [SerializeField] private GameObject droppedVariant;
     [SerializeField] private GameObject weaponFlash;
     [SerializeField] private AudioClip gunSound;
     [SerializeField] private AudioClip hitSound;
     [SerializeField] private AudioClip reloadSound;
+    [SerializeField] private AudioClip magEmpty;
+    [Range(10f, 100f)] public float aimDownSightsFOV = 40f;
 
     private Transform bulletSpawnPoint;
     private GameObject mag;
     private Camera playerCam;
     private AudioSource internalSound;
+    public GunState gunState;
 
-    private int currentMag;
-    private int currentAmmo;
     private bool isReloading = false;
     private float nextTimeToFire = 0f;
     private Quaternion initialRotation;
     private Vector3 initialPosition;
     private Vector3 initialMagPosition;
     private LayerMask hitMask;
-    
+
 
     void Start()
     {
         playerCam = GetComponentInParent<Camera>();
         internalSound = GetComponentInParent<AudioSource>();
-        currentMag = magazineSize;
-        currentAmmo = maxAmmo;
+        gunState = GetComponent<GunState>();
+
         initialPosition = transform.localPosition;
         initialRotation = transform.localRotation;
 
@@ -51,19 +51,21 @@ public class GunController : MonoBehaviour
         hitMask = LayerMask.GetMask("Zombies", "Breakables");
     }
 
+    public bool CheckCooldown()
+    {
+        return Time.time >= nextTimeToFire;
+    }
+
     public void Shoot()
     {
+        Debug.Log("Attempting to shoot");
         if (isReloading) return;
         if (Time.time < nextTimeToFire) return;
 
-        if (currentMag <= 0)
-        {
-            TryReload();
-            return;
-        }
+        if (gunState.currentMag <= 0) return;
 
         nextTimeToFire = Time.time + 1f / fireRate;
-        currentMag--;
+        gunState.currentMag--;
 
         internalSound.PlayOneShot(gunSound);
 
@@ -93,11 +95,13 @@ public class GunController : MonoBehaviour
     IEnumerator Reload()
     {
         if (isReloading) yield break;
-        if (currentMag == magazineSize) yield break;
-        if (currentAmmo == 0) yield break;
+        if (gunState.currentMag == gunState.magazineSize) yield break;
+        if (gunState.currentAmmo == 0) {
+            internalSound.PlayOneShot(magEmpty);
+            yield break;
+        };
 
-        int ammoToLoad = Math.Min(magazineSize - currentMag, currentAmmo);
-        if (ammoToLoad == 0) yield break;
+        if (!gunState.Reload()) yield break;
 
         isReloading = true;
         internalSound.PlayOneShot(reloadSound);
@@ -125,16 +129,15 @@ public class GunController : MonoBehaviour
             yield return null;
         }
 
-        currentMag += ammoToLoad;
-        currentAmmo -= ammoToLoad;
         isReloading = false;
     }
 
-    public void TryReload()
+    public bool TryReload()
     {
-        if (isReloading) return;
-        if (currentMag == magazineSize) return;
+        if (isReloading) return false;
+        if (gunState.currentMag == gunState.magazineSize) return false;
         StartCoroutine(Reload());
+        return true;
     }
 
     private IEnumerator Recoil()
@@ -160,5 +163,18 @@ public class GunController : MonoBehaviour
         }
 
         transform.localPosition = initialPosition;
+    }
+
+    public void Drop()
+    {
+        GameObject dropped = Instantiate(droppedVariant, transform.position, transform.rotation);
+        GunState droppedGun = dropped.GetComponent<GunState>();
+        if (droppedGun != null)
+        {
+            droppedGun.currentAmmo = gunState.currentAmmo;
+            droppedGun.currentMag = gunState.currentMag;
+            droppedGun.transferredAmmo = true;
+        }
+        Destroy(gameObject);
     }
 }

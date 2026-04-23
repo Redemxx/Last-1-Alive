@@ -445,6 +445,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4981333662369402437, guid: b80ef2d6ae5cf374689340003f1a0b75, type: 3}
+      propertyPath: maxAmmo
+      value: 384
+      objectReference: {fileID: 0}
+    - target: {fileID: -4981333662369402437, guid: b80ef2d6ae5cf374689340003f1a0b75, type: 3}
+      propertyPath: magazineSize
+      value: 32
+      objectReference: {fileID: 0}
     - target: {fileID: 1095254202041702, guid: b80ef2d6ae5cf374689340003f1a0b75, type: 3}
       propertyPath: m_Name
       value: Uzi (Dropped)

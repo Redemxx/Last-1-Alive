@@ -104,6 +104,9 @@ GameObject:
   - component: {fileID: 1150152165752845922}
   - component: {fileID: 4869712888994581632}
   - component: {fileID: 2664990847446973067}
+  - component: {fileID: -7102750359040370652}
+  - component: {fileID: 4895350090445209165}
+  - component: {fileID: -4981333662369402437}
   m_Layer: 0
   m_Name: Uzi (Dropped)
   m_TagString: Gun
@@ -256,6 +259,67 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: -0.0033774823, z: -0.032502145}
+--- !u!114 &-7102750359040370652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095254202041702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: dcbb4f8d98a10fb4a964e5adc9e09384, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: OnFoot
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &4895350090445209165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095254202041702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 826f5137235b4b246ba8a78441fb740e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pickup
+  highlightMaterial: {fileID: 2100000, guid: ad9f1e19c4cde2d4c822a67a4ae301d2, type: 2}
+  weaponPrefab: {fileID: 1095254202041702, guid: 6273e2936e9d6a24e9f64c7c70d6bd19, type: 3}
+  lookRange: 3
+--- !u!114 &-4981333662369402437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095254202041702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58deec2e023211647b0988aa7d939f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunState
+  magazineSize: 32
+  maxAmmo: 384
+  currentMag: 0
+  currentAmmo: 0
 --- !u!1 &1382682361031114
 GameObject:
   m_ObjectHideFlags: 0

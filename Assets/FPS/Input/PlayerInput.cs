@@ -172,6 +172,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Button"",
+                    ""id"": ""25ccce38-b05e-4be2-84d8-bbc805639c1a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ZoomEnd"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc11851f-3b5f-439f-859f-87e694120214"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drop"",
+                    ""type"": ""Button"",
+                    ""id"": ""c57f8174-4bb7-489e-97b2-6a6b1e078099"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -361,6 +388,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Pickup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11f72641-e92c-4aa2-a182-f7465c9564cb"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59717a12-39cc-4958-852d-6d28f5300112"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ZoomEnd"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db5a8d4c-dd45-4a48-b27d-0b1dea57d390"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -378,6 +438,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnFoot_Run = m_OnFoot.FindAction("Run", throwIfNotFound: true);
         m_OnFoot_RunEnd = m_OnFoot.FindAction("RunEnd", throwIfNotFound: true);
         m_OnFoot_Pickup = m_OnFoot.FindAction("Pickup", throwIfNotFound: true);
+        m_OnFoot_Zoom = m_OnFoot.FindAction("Zoom", throwIfNotFound: true);
+        m_OnFoot_ZoomEnd = m_OnFoot.FindAction("ZoomEnd", throwIfNotFound: true);
+        m_OnFoot_Drop = m_OnFoot.FindAction("Drop", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -467,6 +530,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Run;
     private readonly InputAction m_OnFoot_RunEnd;
     private readonly InputAction m_OnFoot_Pickup;
+    private readonly InputAction m_OnFoot_Zoom;
+    private readonly InputAction m_OnFoot_ZoomEnd;
+    private readonly InputAction m_OnFoot_Drop;
     /// <summary>
     /// Provides access to input actions defined in input action map "OnFoot".
     /// </summary>
@@ -514,6 +580,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "OnFoot/Pickup".
         /// </summary>
         public InputAction @Pickup => m_Wrapper.m_OnFoot_Pickup;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFoot/Zoom".
+        /// </summary>
+        public InputAction @Zoom => m_Wrapper.m_OnFoot_Zoom;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFoot/ZoomEnd".
+        /// </summary>
+        public InputAction @ZoomEnd => m_Wrapper.m_OnFoot_ZoomEnd;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFoot/Drop".
+        /// </summary>
+        public InputAction @Drop => m_Wrapper.m_OnFoot_Drop;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -567,6 +645,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Pickup.started += instance.OnPickup;
             @Pickup.performed += instance.OnPickup;
             @Pickup.canceled += instance.OnPickup;
+            @Zoom.started += instance.OnZoom;
+            @Zoom.performed += instance.OnZoom;
+            @Zoom.canceled += instance.OnZoom;
+            @ZoomEnd.started += instance.OnZoomEnd;
+            @ZoomEnd.performed += instance.OnZoomEnd;
+            @ZoomEnd.canceled += instance.OnZoomEnd;
+            @Drop.started += instance.OnDrop;
+            @Drop.performed += instance.OnDrop;
+            @Drop.canceled += instance.OnDrop;
         }
 
         /// <summary>
@@ -605,6 +692,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Pickup.started -= instance.OnPickup;
             @Pickup.performed -= instance.OnPickup;
             @Pickup.canceled -= instance.OnPickup;
+            @Zoom.started -= instance.OnZoom;
+            @Zoom.performed -= instance.OnZoom;
+            @Zoom.canceled -= instance.OnZoom;
+            @ZoomEnd.started -= instance.OnZoomEnd;
+            @ZoomEnd.performed -= instance.OnZoomEnd;
+            @ZoomEnd.canceled -= instance.OnZoomEnd;
+            @Drop.started -= instance.OnDrop;
+            @Drop.performed -= instance.OnDrop;
+            @Drop.canceled -= instance.OnDrop;
         }
 
         /// <summary>
@@ -708,5 +804,26 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPickup(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Zoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnZoom(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ZoomEnd" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnZoomEnd(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Drop" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDrop(InputAction.CallbackContext context);
     }
 }

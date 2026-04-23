@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 33850499219332204}
   - component: {fileID: 23421164134073748}
   m_Layer: 0
-  m_Name: Magazin
+  m_Name: Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 33265667909663144}
   - component: {fileID: 23745275597904220}
   - component: {fileID: 1637406298244131407}
+  - component: {fileID: -4105829581452397014}
   m_Layer: 0
   m_Name: M107
   m_TagString: Gun
@@ -377,20 +378,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e5394b387098c44a7e5394350e5928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunController
-  reloadTime: 3
+  reloadTime: 1
   reloadRotationOffset: {x: 66, y: 50, z: 50}
-  fireRate: 4
-  magazineSize: 10
+  fireRate: 2
   magPullDistance: 0.3
   magPullDirection: {x: 0, y: -1, z: 0}
-  maxAmmo: 80
-  baseDamage: 16
+  baseDamage: 25
   bullet: {fileID: 600757924290632880, guid: 5a1a274747a523a4fbdb0ea30888f755, type: 3}
   recoilDistance: 0.2
   recoilReturnSpeed: 0.2
+  droppedVariant: {fileID: 1829597508155286, guid: dca64c6d3c9e2bb40841ea344a0c5d1a, type: 3}
   weaponFlash: {fileID: 1682709173782955669, guid: a9b67950593526d4d9729cfa7347044c, type: 3}
-  gunSound: {fileID: 0}
-  hitSound: {fileID: 0}
+  gunSound: {fileID: 8300000, guid: e0370431f2712764084b6967ee4f3ec8, type: 3}
+  hitSound: {fileID: 8300000, guid: d12cabe0115efe942bacc290e9e94d55, type: 3}
+  reloadSound: {fileID: 8300000, guid: 5ecdb1c8e9a2f9249bc010236c62e00d, type: 3}
+  magEmpty: {fileID: 8300000, guid: c0ce23390a619d04282d544c1b060e4f, type: 3}
+  aimDownSightsFOV: 40
+  gunState: {fileID: 0}
+--- !u!114 &-4105829581452397014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829597508155286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58deec2e023211647b0988aa7d939f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunState
+  magazineSize: 10
+  maxAmmo: 120
+  currentMag: 0
+  currentAmmo: 0
 --- !u!1 &4058069646759269982
 GameObject:
   m_ObjectHideFlags: 0

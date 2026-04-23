@@ -14,6 +14,7 @@ public class Pickup : MonoBehaviour
     private bool isLookedAt = false;
     private Camera playerCam;
     private PlayerShooting player;
+    private GunState gunState;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class Pickup : MonoBehaviour
 
         player = Object.FindFirstObjectByType<PlayerShooting>();
         playerCam = player.GetComponentInChildren<Camera>();
+        gunState = GetComponent<GunState>();
     }
 
     void Update()
@@ -51,17 +53,20 @@ public class Pickup : MonoBehaviour
 
     public void OnPickup()
     {
-        UnityEngine.Debug.Log("Pickup attempted");
         if (!isLookedAt) return;
+        player.OnDrop();
 
-        if (player.gun != null)
-            Destroy(player.gun.gameObject);
-
-        UnityEngine.Debug.Log("Gun picked up");
         GameObject newGun = Instantiate(weaponPrefab, player.holder.transform);
         newGun.transform.localPosition = Vector3.zero;
         newGun.transform.localRotation = Quaternion.identity;
         player.gun = newGun.GetComponent<GunController>();
+
+        GunState otherGun = newGun.GetComponent<GunState>();
+        if (otherGun != null) {
+            otherGun.transferredAmmo = true;
+            otherGun.currentAmmo = gunState.currentAmmo;
+            otherGun.currentMag = gunState.currentMag;
+        }
 
         Destroy(gameObject);
     }

@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.AdaptivePerformance.Editor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -14,8 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
     
-    [SerializeField] private float mouseSensitivity = 400f;
-    [SerializeField] private Transform playerCamera;
+    [SerializeField] private float baseMouseSensitivity = 400f;
+    [SerializeField] private Camera playerCamera;
     private float xRotation = 0f;
     private Vector2 lookInput;
 
@@ -23,8 +24,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private bool isGrounded;
     private bool isRunning;
+    public bool isZoomed;
     private PlayerInput playerInput;
     private float stamina;
+    private float mouseSensitivity;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,6 +37,7 @@ public class PlayerController : MonoBehaviour
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
         stamina = maxStamina;
+        mouseSensitivity = baseMouseSensitivity;
     }
 
     // Update is called once per frame
@@ -45,7 +49,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(stamina);
         MovePlayer();
 
         if (!isRunning && stamina < maxStamina)
@@ -88,6 +91,20 @@ public class PlayerController : MonoBehaviour
     {
         lookInput = inputValue.Get<Vector2>();
     }
+    
+    public void AimDownSights(float? factor = null)
+    {
+        if (factor.HasValue)
+        {
+            mouseSensitivity = baseMouseSensitivity * factor.Value;
+            isZoomed = true;
+        }
+        else
+        {
+            mouseSensitivity = baseMouseSensitivity;
+            isZoomed = false;
+        }
+    }
 
     void HandleMouseLook()
     {
@@ -96,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90, 90);
-        playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
 
@@ -114,6 +131,7 @@ public class PlayerController : MonoBehaviour
         }
 
         float movementSpeed = isRunning ? runSpeed : moveSpeed;
+        if (isZoomed) movementSpeed *= 0.4f;
         rb.linearVelocity = new Vector3(direction.x * movementSpeed, rb.linearVelocity.y, direction.z * movementSpeed);
     }
 }

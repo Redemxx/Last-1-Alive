@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 33699190840813150}
   - component: {fileID: 23280471604157296}
   - component: {fileID: 8961328770877827089}
+  - component: {fileID: 6475479703295283720}
   m_Layer: 0
   m_Name: M4_8
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,19 +111,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunController
   reloadTime: 1
-  reloadRotationOffset: {x: 66, y: 50, z: 50}
-  fireRate: 2.25
-  magazineSize: 10
+  reloadRotationOffset: {x: 66, y: 70, z: 110}
+  fireRate: 8
   magPullDistance: 0.3
   magPullDirection: {x: 0, y: -1, z: 0}
-  maxAmmo: 120
-  baseDamage: 15
+  baseDamage: 8
   bullet: {fileID: 600757924290632880, guid: 5a1a274747a523a4fbdb0ea30888f755, type: 3}
-  recoilDistance: 0.02
-  recoilReturnSpeed: 2
+  recoilDistance: 0.05
+  recoilReturnSpeed: 0.2
+  droppedVariant: {fileID: 1117582899397640, guid: 01b6906b22113714b8725baeaeae3bd4, type: 3}
   weaponFlash: {fileID: 1682709173782955669, guid: a9b67950593526d4d9729cfa7347044c, type: 3}
-  gunSound: {fileID: 0}
-  hitSound: {fileID: 0}
+  gunSound: {fileID: 8300000, guid: f9cff5cb1c93f94488b3e98c951c5db7, type: 3}
+  hitSound: {fileID: 8300000, guid: d12cabe0115efe942bacc290e9e94d55, type: 3}
+  reloadSound: {fileID: 8300000, guid: 5ecdb1c8e9a2f9249bc010236c62e00d, type: 3}
+  magEmpty: {fileID: 8300000, guid: c0ce23390a619d04282d544c1b060e4f, type: 3}
+  aimDownSightsFOV: 60
+  gunState: {fileID: 0}
+--- !u!114 &6475479703295283720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117582899397640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58deec2e023211647b0988aa7d939f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunState
+  magazineSize: 32
+  maxAmmo: 384
+  currentMag: 0
+  currentAmmo: 0
 --- !u!1 &1426050648627750
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,7 +618,7 @@ Transform:
   m_GameObject: {fileID: 8274869224353161674}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0589, z: -0.34224}
+  m_LocalPosition: {x: 0, y: 0.0589, z: -0.3352}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
