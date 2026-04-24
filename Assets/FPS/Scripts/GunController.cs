@@ -58,7 +58,6 @@ public class GunController : MonoBehaviour
 
     public void Shoot()
     {
-        Debug.Log("Attempting to shoot");
         if (isReloading) return;
         if (Time.time < nextTimeToFire) return;
 
@@ -77,11 +76,9 @@ public class GunController : MonoBehaviour
         Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, hitMask))
         {
-            UnityEngine.Debug.Log("Hit: " + hit.collider.name);
             Health target = hit.collider.GetComponent<Health>();
             if (target != null)
             {
-                UnityEngine.Debug.Log("Dealing damage to: " + hit.collider.name);
                 target.TakeDamage(gameObject, baseDamage);
                 internalSound.PlayOneShot(hitSound);
             }
@@ -137,6 +134,18 @@ public class GunController : MonoBehaviour
         if (isReloading) return false;
         if (gunState.currentMag == gunState.magazineSize) return false;
         StartCoroutine(Reload());
+        return true;
+    }
+
+    public bool FullReload(float reloadWeight)
+    {
+        if (gunState.currentAmmo == gunState.maxAmmo && gunState.currentMag == gunState.magazineSize) return false;
+
+        int needInMag = gunState.magazineSize - gunState.currentMag;
+        gunState.currentAmmo = Mathf.RoundToInt(gunState.maxAmmo * reloadWeight) + needInMag;
+    
+        if (needInMag > 0)
+            StartCoroutine(Reload());
         return true;
     }
 

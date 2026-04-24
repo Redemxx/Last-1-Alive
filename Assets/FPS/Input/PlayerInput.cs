@@ -165,7 +165,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Pickup"",
+                    ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""e1450755-dc5d-48af-9203-b7af4c19c12f"",
                     ""expectedControlType"": """",
@@ -385,7 +385,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Pickup"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -437,7 +437,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnFoot_Reload = m_OnFoot.FindAction("Reload", throwIfNotFound: true);
         m_OnFoot_Run = m_OnFoot.FindAction("Run", throwIfNotFound: true);
         m_OnFoot_RunEnd = m_OnFoot.FindAction("RunEnd", throwIfNotFound: true);
-        m_OnFoot_Pickup = m_OnFoot.FindAction("Pickup", throwIfNotFound: true);
+        m_OnFoot_Interact = m_OnFoot.FindAction("Interact", throwIfNotFound: true);
         m_OnFoot_Zoom = m_OnFoot.FindAction("Zoom", throwIfNotFound: true);
         m_OnFoot_ZoomEnd = m_OnFoot.FindAction("ZoomEnd", throwIfNotFound: true);
         m_OnFoot_Drop = m_OnFoot.FindAction("Drop", throwIfNotFound: true);
@@ -529,7 +529,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Reload;
     private readonly InputAction m_OnFoot_Run;
     private readonly InputAction m_OnFoot_RunEnd;
-    private readonly InputAction m_OnFoot_Pickup;
+    private readonly InputAction m_OnFoot_Interact;
     private readonly InputAction m_OnFoot_Zoom;
     private readonly InputAction m_OnFoot_ZoomEnd;
     private readonly InputAction m_OnFoot_Drop;
@@ -577,9 +577,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @RunEnd => m_Wrapper.m_OnFoot_RunEnd;
         /// <summary>
-        /// Provides access to the underlying input action "OnFoot/Pickup".
+        /// Provides access to the underlying input action "OnFoot/Interact".
         /// </summary>
-        public InputAction @Pickup => m_Wrapper.m_OnFoot_Pickup;
+        public InputAction @Interact => m_Wrapper.m_OnFoot_Interact;
         /// <summary>
         /// Provides access to the underlying input action "OnFoot/Zoom".
         /// </summary>
@@ -642,9 +642,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @RunEnd.started += instance.OnRunEnd;
             @RunEnd.performed += instance.OnRunEnd;
             @RunEnd.canceled += instance.OnRunEnd;
-            @Pickup.started += instance.OnPickup;
-            @Pickup.performed += instance.OnPickup;
-            @Pickup.canceled += instance.OnPickup;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
             @Zoom.started += instance.OnZoom;
             @Zoom.performed += instance.OnZoom;
             @Zoom.canceled += instance.OnZoom;
@@ -689,9 +689,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @RunEnd.started -= instance.OnRunEnd;
             @RunEnd.performed -= instance.OnRunEnd;
             @RunEnd.canceled -= instance.OnRunEnd;
-            @Pickup.started -= instance.OnPickup;
-            @Pickup.performed -= instance.OnPickup;
-            @Pickup.canceled -= instance.OnPickup;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
             @Zoom.started -= instance.OnZoom;
             @Zoom.performed -= instance.OnZoom;
             @Zoom.canceled -= instance.OnZoom;
@@ -798,12 +798,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRunEnd(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Pickup" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnPickup(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Zoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

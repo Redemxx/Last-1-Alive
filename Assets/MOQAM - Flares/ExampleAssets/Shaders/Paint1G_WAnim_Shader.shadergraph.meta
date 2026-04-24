@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 5e5eca56e1993e741b41ac9c687d01a5
+ScriptedImporter:
+  fileIDToRecycleName:
+    4800000: MainAsset
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 209209
+  packageName: Road Flares
+  packageVersion: 1.0
+  assetPath: Assets/MOQAM - Flares/ExampleAssets/Shaders/Paint1G_WAnim_Shader.shadergraph
+  uploadId: 479111

@@ -6,3 +6,10 @@ NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 209209
+  packageName: Road Flares
+  packageVersion: 1.0
+  assetPath: Assets/Materials/Settings/SampleSceneProfile.asset
+  uploadId: 479111

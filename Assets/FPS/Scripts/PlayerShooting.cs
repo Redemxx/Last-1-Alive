@@ -11,16 +11,21 @@ public class PlayerShooting : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerController playerController;
     private Camera playerCam;
+    private float baseFOV;
 
     void Start()
     {
         playerInput = new PlayerInput();
         playerController = GetComponentInChildren<PlayerController>();
         playerCam = GetComponentInChildren<Camera>();
+        baseFOV = playerCam.fieldOfView;
 
-        Transform gunTransform = holder.transform.GetChild(0);
-        GameObject foundGun = gunTransform.gameObject;
-        if (foundGun) gun = foundGun.GetComponent<GunController>();
+        if (holder.transform.childCount > 0)
+        {
+            Transform gunTransform = holder.transform.GetChild(0);
+            GameObject foundGun = gunTransform.gameObject;
+            if (foundGun) gun = foundGun.GetComponent<GunController>();
+        }
     }
 
     void OnShoot()
@@ -52,7 +57,7 @@ public class PlayerShooting : MonoBehaviour
     void OnZoomEnd()
     {
         playerController.AimDownSights();
-        playerCam.fieldOfView = 100f;
+        playerCam.fieldOfView = baseFOV;
     }
 
     public void OnDrop()
@@ -65,9 +70,6 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Update called, isShooting: " + isShooting);
-        Debug.Log(gun != null ? "Gun is not null" : "Gun is null");
-        Debug.Log("Checking cooldown: " + (gun != null ? gun.CheckCooldown().ToString() : "No gun to check cooldown"));
         if (gun != null && isShooting && gun.CheckCooldown()) { 
             if (gun.gunState.currentMag <= 0)
             {

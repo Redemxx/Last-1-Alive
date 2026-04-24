@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 lookInput;
 
     private Rigidbody rb;
+    private Health health;
     private Vector2 moveInput;
     private bool isGrounded;
     private bool isRunning;
@@ -38,6 +39,16 @@ public class PlayerController : MonoBehaviour
         UnityEngine.Cursor.visible = false;
         stamina = maxStamina;
         mouseSensitivity = baseMouseSensitivity;
+
+        health = GetComponent<Health>();
+        health.onDeath += OnDeath;
+    }
+
+    public void OnDeath(GameObject source)
+    {
+        // Handle player death (e.g., respawn, show game over screen, etc.)
+        Debug.Log("Player has died.");
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
