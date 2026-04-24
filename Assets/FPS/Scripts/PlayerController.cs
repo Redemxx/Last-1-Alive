@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using UnityEditor.AdaptivePerformance.Editor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -100,7 +101,15 @@ public class PlayerController : MonoBehaviour
 
     void OnLook(InputValue inputValue)
     {
-        lookInput = inputValue.Get<Vector2>();
+        Vector2 tmp = inputValue.Get<Vector2>();
+
+        float mouseX = tmp.x * mouseSensitivity;
+        float mouseY = tmp.y * mouseSensitivity;
+
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90, 90);
+        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        transform.Rotate(Vector3.up * mouseX);
     }
     
     public void AimDownSights(float? factor = null)
