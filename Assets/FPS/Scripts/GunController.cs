@@ -76,6 +76,7 @@ public class GunController : MonoBehaviour
         Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, hitMask))
         {
+            Debug.Log("Hit " + hit.collider.name);
             Health target = hit.collider.GetComponent<Health>();
             if (target != null)
             {
