@@ -26,12 +26,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667546846205273087}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.70705765, y: -0, z: -0, w: 0.70715594}
-  m_LocalPosition: {x: -0.004, y: 3.4, z: 0.783}
+  m_LocalRotation: {x: 0.7070577, y: -0.000000014901161, z: -0.000000014901161, w: 0.70715594}
+  m_LocalPosition: {x: 0, y: 0.0093996525, z: 0.020209908}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5623816384937972763}
+  m_Father: {fileID: 4198124557777524542}
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!108 &4024411913570510031
 Light:
@@ -154,11 +154,11 @@ Transform:
   m_GameObject: {fileID: 4766573574126555607}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0039999485, y: 3.315, z: 0.783}
+  m_LocalPosition: {x: 0, y: -0.07559943, z: 0.020209908}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5623816384937972763}
+  m_Father: {fileID: 4198124557777524542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &5230984914653039805
 Light:
@@ -271,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3820278129613222262
 Transform:
   m_ObjectHideFlags: 0
@@ -281,11 +281,11 @@ Transform:
   m_GameObject: {fileID: 4802006918609769833}
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710754, y: 0.000000059604638, z: -0.00000022351739, w: 0.7071061}
-  m_LocalPosition: {x: -0, y: 3.4709, z: 0.7558}
+  m_LocalPosition: {x: 0.0040219943, y: 0.080299616, z: -0.0070103407}
   m_LocalScale: {x: 0.17797548, y: 0.16341774, z: 0.15863866}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5623816384937972763}
+  m_Father: {fileID: 4198124557777524542}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4121742647792241163
 MeshFilter:
@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 1274419782719127986}
   - component: {fileID: 7221810224508909628}
   - component: {fileID: 527005427653682221}
+  - component: {fileID: 4867005290540461927}
   m_Layer: 10
   m_Name: Smash
   m_TagString: Untagged
@@ -375,7 +376,10 @@ Transform:
   m_LocalPosition: {x: -0.004, y: 3.3906, z: 0.7628}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3820278129613222262}
+  - {fileID: 8322476336503666280}
+  - {fileID: 1151464179299795060}
   m_Father: {fileID: 5623816384937972763}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1274419782719127986
@@ -509,6 +513,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   basehealth: 0
+--- !u!114 &4867005290540461927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7269658084633803961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfea3264a9b6f584e904986b09b1f76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmashLight
 --- !u!1 &8669595224616019464
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +537,6 @@ GameObject:
   - component: {fileID: 3697676895676067373}
   - component: {fileID: 6947999659838870228}
   - component: {fileID: 533577776101914940}
-  - component: {fileID: 8220959283119922473}
   m_Layer: 9
   m_Name: Smashable_StreetLampSmall
   m_TagString: Untagged
@@ -542,10 +557,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8322476336503666280}
-  - {fileID: 1151464179299795060}
   - {fileID: 4198124557777524542}
-  - {fileID: 3820278129613222262}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3697676895676067373
@@ -628,15 +640,3 @@ CapsuleCollider:
   m_Height: 3.543503
   m_Direction: 1
   m_Center: {x: 0, y: 1.7717515, z: 0.0043095946}
---- !u!114 &8220959283119922473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8669595224616019464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfea3264a9b6f584e904986b09b1f76f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'

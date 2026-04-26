@@ -9,14 +9,14 @@ public class PlayerShooting : MonoBehaviour
 
     private bool isShooting = false;
     private PlayerInput playerInput;
-    private PlayerController playerController;
+    public PlayerController playerController { get; private set; }
     private Camera playerCam;
     private float baseFOV;
 
     void Start()
     {
         playerInput = new PlayerInput();
-        playerController = GetComponentInChildren<PlayerController>();
+        playerController = GetComponent<PlayerController>();
         playerCam = GetComponentInChildren<Camera>();
         baseFOV = playerCam.fieldOfView;
 

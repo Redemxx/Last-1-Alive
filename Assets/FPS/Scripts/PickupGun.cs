@@ -4,11 +4,13 @@ public class PickupGun : InteractAction
 {
     public GameObject weaponPrefab;
     private PlayerShooting player;
+    private PlayerController playerController;
     private GunState gunState;
 
     void Start()
     {
         player = Object.FindFirstObjectByType<PlayerShooting>();
+        playerController = Object.FindFirstObjectByType<PlayerController>();
         gunState = GetComponent<GunState>();
     }
 
@@ -28,7 +30,7 @@ public class PickupGun : InteractAction
             otherGun.currentAmmo = gunState.currentAmmo;
             otherGun.currentMag = gunState.currentMag;
         }
-
+        playerController.PlayPickupSound();
         Destroy(gameObject);
         return true;
     }

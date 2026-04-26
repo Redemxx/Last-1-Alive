@@ -93,13 +93,12 @@ public class NormalZombieController : MonoBehaviour
 
     public IEnumerator ThrowAttack()
     {
+        yield return new WaitForSeconds(0.8f);
+        if (target == null) yield break;
         if (isDead) yield break;
 
-        yield return new WaitForSeconds(2.6f);
-        if (target == null) yield break;
-
         float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-        if (distanceToTarget > attackDistance + 0.5f) yield break;
+        if (distanceToTarget > attackDistance) yield break;
 
         Health player = target.GetComponentInParent<Health>();
         if (player != null)
@@ -179,6 +178,7 @@ public class NormalZombieController : MonoBehaviour
         GetComponent<Collider>().enabled = false;
         colliders.Clear();
         isDead = true;
+        Destroy(gameObject, 60f);
     }
 
     public void OnAlerted(GameObject source)

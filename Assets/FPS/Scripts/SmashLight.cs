@@ -2,22 +2,26 @@ using UnityEngine;
 
 public class SmashLight : MonoBehaviour
 {
-    Health health;
-    AudioSource audioSource;
-    GameObject lightCover;
+    private Health health;
+    private AudioSource audioSource;
+    private GameObject lightCover;
+    private bool isSmashed = false;
+
     void Start()
     {
-        health = GetComponentInChildren<Health>();
+        health = GetComponent<Health>();
         health.onDeath += Smash;
 
-        audioSource = GetComponentInChildren<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         lightCover = transform.Find("Cover").gameObject;
         lightCover.SetActive(false);
     }
 
     public void Smash(GameObject obj)
     {
-        Debug.Log("Smash light!");
+        if (isSmashed) return;
+
+        isSmashed = true;
         foreach (Light light in GetComponentsInChildren<Light>())
         {
             light.enabled = false;

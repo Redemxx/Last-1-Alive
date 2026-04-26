@@ -2552,9 +2552,11 @@ MonoBehaviour:
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
-  baseMouseSensitivity: 400
+    m_Bits: 9
+  baseMouseSensitivity: 0.5
   playerCamera: {fileID: 5379634160851536406}
+  pickupSound: {fileID: 8300000, guid: 1239586a54051644eaaf623d837ff151, type: 3}
+  healthPacks: 0
   isZoomed: 0
 --- !u!114 &1431751502004110078
 MonoBehaviour:
@@ -2731,7 +2733,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8634785580363627107}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 0.8768735, b: 0.6179246, a: 1}

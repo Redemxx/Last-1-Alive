@@ -18,11 +18,16 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] private float baseMouseSensitivity = 400f;
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private AudioClip pickupSound;
+    public int healthPacks;
+
     private float xRotation = 0f;
     private Vector2 lookInput;
 
     private Rigidbody rb;
-    private Health health;
+    public Health health { get; private set; }
+    private AudioSource audioSource;
+    private Light flashlight;
     private Vector2 moveInput;
     private bool isGrounded;
     private bool isRunning;
@@ -43,6 +48,19 @@ public class PlayerController : MonoBehaviour
 
         health = GetComponent<Health>();
         health.onDeath += OnDeath;
+
+        audioSource = GetComponentInChildren<AudioSource>();
+        flashlight = GetComponentInChildren<Light>();
+    }
+
+    public void PlayPickupSound()
+    {
+        audioSource.PlayOneShot(pickupSound);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 
     public void OnDeath(GameObject source)
@@ -110,6 +128,11 @@ public class PlayerController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90, 90);
         playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+    void OnToggleLight()
+    {
+        flashlight.enabled = !flashlight.enabled;
     }
     
     public void AimDownSights(float? factor = null)

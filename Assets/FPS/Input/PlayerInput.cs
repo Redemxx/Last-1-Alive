@@ -199,6 +199,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleLight"",
+                    ""type"": ""Button"",
+                    ""id"": ""74096a2f-2b2b-4f1c-b522-8975feb24530"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Heal"",
+                    ""type"": ""Button"",
+                    ""id"": ""dfe1b994-d569-4bed-b5b3-51e4dc8f1f32"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -421,6 +439,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Drop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9009c7c6-c839-4c05-bdf8-014fa66c0424"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleLight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c5cbd656-a0b8-48ca-9007-bc54e1cbae94"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -441,6 +481,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnFoot_Zoom = m_OnFoot.FindAction("Zoom", throwIfNotFound: true);
         m_OnFoot_ZoomEnd = m_OnFoot.FindAction("ZoomEnd", throwIfNotFound: true);
         m_OnFoot_Drop = m_OnFoot.FindAction("Drop", throwIfNotFound: true);
+        m_OnFoot_ToggleLight = m_OnFoot.FindAction("ToggleLight", throwIfNotFound: true);
+        m_OnFoot_Heal = m_OnFoot.FindAction("Heal", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -533,6 +575,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Zoom;
     private readonly InputAction m_OnFoot_ZoomEnd;
     private readonly InputAction m_OnFoot_Drop;
+    private readonly InputAction m_OnFoot_ToggleLight;
+    private readonly InputAction m_OnFoot_Heal;
     /// <summary>
     /// Provides access to input actions defined in input action map "OnFoot".
     /// </summary>
@@ -592,6 +636,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "OnFoot/Drop".
         /// </summary>
         public InputAction @Drop => m_Wrapper.m_OnFoot_Drop;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFoot/ToggleLight".
+        /// </summary>
+        public InputAction @ToggleLight => m_Wrapper.m_OnFoot_ToggleLight;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFoot/Heal".
+        /// </summary>
+        public InputAction @Heal => m_Wrapper.m_OnFoot_Heal;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -654,6 +706,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Drop.started += instance.OnDrop;
             @Drop.performed += instance.OnDrop;
             @Drop.canceled += instance.OnDrop;
+            @ToggleLight.started += instance.OnToggleLight;
+            @ToggleLight.performed += instance.OnToggleLight;
+            @ToggleLight.canceled += instance.OnToggleLight;
+            @Heal.started += instance.OnHeal;
+            @Heal.performed += instance.OnHeal;
+            @Heal.canceled += instance.OnHeal;
         }
 
         /// <summary>
@@ -701,6 +759,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Drop.started -= instance.OnDrop;
             @Drop.performed -= instance.OnDrop;
             @Drop.canceled -= instance.OnDrop;
+            @ToggleLight.started -= instance.OnToggleLight;
+            @ToggleLight.performed -= instance.OnToggleLight;
+            @ToggleLight.canceled -= instance.OnToggleLight;
+            @Heal.started -= instance.OnHeal;
+            @Heal.performed -= instance.OnHeal;
+            @Heal.canceled -= instance.OnHeal;
         }
 
         /// <summary>
@@ -825,5 +889,19 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDrop(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleLight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleLight(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Heal" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHeal(InputAction.CallbackContext context);
     }
 }
