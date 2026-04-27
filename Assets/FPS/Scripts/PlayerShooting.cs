@@ -1,6 +1,4 @@
-using Unity.VectorGraphics.Editor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {

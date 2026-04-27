@@ -33,9 +33,11 @@ public class NormalZombieController : MonoBehaviour
 
     void Start()
     {
+        attackDamage = Mathf.CeilToInt(attackDamage * (1f + GameState.Instance.GameModifier()));
         health = GetComponent<Health>();
         health.onDeath += Die;
         health.onDamaged += OnAlerted;
+        health.ApplyModifier(GameState.Instance.GameModifier());
 
         nav = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -141,27 +143,66 @@ public class NormalZombieController : MonoBehaviour
 
         colliders.Add(other);
 
+        if (other.CompareTag("Zombie"))
+        {
+            var zombieController = other.gameObject.GetComponent<NormalZombieController>();
+            if (zombieController != null && zombieController.target != null)
+            {
+                StartCoroutine(Engage(zombieController.target));
+                return;
+            }
+        }
+
         if (target != null) return;
 
         if (other.CompareTag("Player"))
         {
-            target = other.gameObject;
-            audioSource.PlayOneShot(zombieScream);
-            animator.SetBool("Engaged", true);
+            AlertZombies(other.gameObject);
+            //target = other.gameObject;
+            //audioSource.PlayOneShot(zombieScream);
+            //animator.SetBool("Engaged", true);
 
-            // Alert nearby zombies
-            foreach (var collider in colliders)
+            //// Alert nearby zombies
+            //foreach (var collider in colliders)
+            //{
+            //    if (collider != null &&collider.CompareTag("Zombie"))
+            //    {
+            //        var zombieController = collider.gameObject.GetComponent<NormalZombieController>();
+            //        if (zombieController != null)
+            //        {
+            //            StartCoroutine(zombieController.Engage(target));
+            //        }
+            //    }
+            //}
+        }
+    }
+
+    private void AlertZombies(GameObject source)
+    {
+        target = source;
+        audioSource.PlayOneShot(zombieScream);
+        animator.SetBool("Engaged", true);
+
+        StartCoroutine(AlertZombiesCont());
+    }
+
+    public IEnumerator AlertZombiesCont() {
+        yield return new WaitForSeconds(2f);
+
+        if (isDead) yield break;
+
+        foreach (var collider in colliders)
+        {
+            if (collider != null && collider.CompareTag("Zombie"))
             {
-                if (collider != null &&collider.CompareTag("Zombie"))
+                var zombieController = collider.gameObject.GetComponent<NormalZombieController>();
+                if (zombieController != null)
                 {
-                    var zombieController = collider.gameObject.GetComponent<NormalZombieController>();
-                    if (zombieController != null)
-                    {
-                        StartCoroutine(zombieController.Engage(target));
-                    }
+                    StartCoroutine(zombieController.Engage(target));
                 }
             }
         }
+        yield break;
     }
 
     private void OnTriggerExit(Collider other)
@@ -183,9 +224,10 @@ public class NormalZombieController : MonoBehaviour
 
     public void OnAlerted(GameObject source)
     {
-        target = source;
-        nav.SetDestination(source.transform.position);
-        animator.SetBool("Moving", true);
+        //target = source;
+        //nav.SetDestination(source.transform.position);
+        //animator.SetBool("Moving", true);
         health.onDamaged -= OnAlerted;
+        AlertZombies(source);
     }
 }

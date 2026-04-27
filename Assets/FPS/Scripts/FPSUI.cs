@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FPSUI : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class FPSUI : MonoBehaviour
     private PlayerShooting playerShooting;
     private Health playerHealth;
     private PlayerController playerController;
+    private GameObject playerUI;
+    private GameObject winScreen;
+    private GameObject deathScreen;
 
     private void Awake()
     {
@@ -30,11 +34,13 @@ public class FPSUI : MonoBehaviour
 
     void Start()
     {
-        health = transform.Find("Health").GetComponent<TMP_Text>();
-        ammo = transform.Find("Ammo").GetComponent<TMP_Text>();
-        healthKits = transform.Find("HealthKits").GetComponent<TMP_Text>();
-        messageSpawnPoint = transform.Find("MessageSpawn").transform;
-
+        deathScreen = transform.Find("Death").gameObject;
+        winScreen = transform.Find("Win").gameObject;
+        playerUI = transform.Find("UI").gameObject;
+        health = playerUI.transform.Find("Health").GetComponent<TMP_Text>();
+        ammo = playerUI.transform.Find("Ammo").GetComponent<TMP_Text>();
+        healthKits = playerUI.transform.Find("HealthKits").GetComponent<TMP_Text>();
+        messageSpawnPoint = playerUI.transform.Find("MessageSpawn").transform;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerShooting = player.GetComponent<PlayerShooting>();
         playerController = player.GetComponent<PlayerController>();
@@ -72,5 +78,48 @@ public class FPSUI : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         ShowMessage(message, duration);
+    }
+
+    public void ChangeMenu(int menu)
+    {
+        switch (menu)
+        {
+            case 0:
+                playerUI.SetActive(true);
+                winScreen.SetActive(false);
+                deathScreen.SetActive(false);
+                break;
+            case 1:
+                playerUI.SetActive(false);
+                winScreen.SetActive(true);
+                deathScreen.SetActive(false);
+                break;
+            case 2:
+                playerUI.SetActive(false);
+                winScreen.SetActive(false);
+                deathScreen.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void ResumeGame()
+    {
+        ChangeMenu(0);
+        Time.timeScale = 1f;
+    }
+
+    public void PauseGame()
+    {
+        ChangeMenu(1);
+        Time.timeScale = 0f;
+    }
+
+    public void ExitToMainMenu()
+    {
+        Time.timeScale = 1f;
+        Destroy(gameObject);
+        SceneManager.LoadScene("Main Menu");
     }
 }

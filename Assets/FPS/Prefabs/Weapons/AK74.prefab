@@ -318,9 +318,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunState
   magazineSize: 30
-  maxAmmo: 360
+  maxAmmo: 240
   currentMag: 0
   currentAmmo: 0
+  transferredAmmo: 0
 --- !u!1 &1927369336514790
 GameObject:
   m_ObjectHideFlags: 0

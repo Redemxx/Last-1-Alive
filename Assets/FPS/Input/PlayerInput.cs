@@ -217,6 +217,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""e77bf928-f1d7-4184-b634-7715501e6882"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -461,6 +470,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Heal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63037cd4-ea14-4000-90e3-bf8f553d43ec"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -483,6 +503,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnFoot_Drop = m_OnFoot.FindAction("Drop", throwIfNotFound: true);
         m_OnFoot_ToggleLight = m_OnFoot.FindAction("ToggleLight", throwIfNotFound: true);
         m_OnFoot_Heal = m_OnFoot.FindAction("Heal", throwIfNotFound: true);
+        m_OnFoot_Menu = m_OnFoot.FindAction("Menu", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -577,6 +598,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Drop;
     private readonly InputAction m_OnFoot_ToggleLight;
     private readonly InputAction m_OnFoot_Heal;
+    private readonly InputAction m_OnFoot_Menu;
     /// <summary>
     /// Provides access to input actions defined in input action map "OnFoot".
     /// </summary>
@@ -645,6 +667,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Heal => m_Wrapper.m_OnFoot_Heal;
         /// <summary>
+        /// Provides access to the underlying input action "OnFoot/Menu".
+        /// </summary>
+        public InputAction @Menu => m_Wrapper.m_OnFoot_Menu;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
@@ -712,6 +738,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Heal.started += instance.OnHeal;
             @Heal.performed += instance.OnHeal;
             @Heal.canceled += instance.OnHeal;
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
         }
 
         /// <summary>
@@ -765,6 +794,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Heal.started -= instance.OnHeal;
             @Heal.performed -= instance.OnHeal;
             @Heal.canceled -= instance.OnHeal;
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
         }
 
         /// <summary>
@@ -903,5 +935,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnHeal(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Menu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMenu(InputAction.CallbackContext context);
     }
 }

@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunState
   magazineSize: 32
-  maxAmmo: 384
+  maxAmmo: 256
   currentMag: 0
   currentAmmo: 0
   transferredAmmo: 0

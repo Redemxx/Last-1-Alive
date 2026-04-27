@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ZombieSpawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> zombies = new List<GameObject>();
+    [SerializeField] private int[] weights;
     [SerializeField] private int initialZombiesToSpawn = 4;
     [SerializeField] private float waveCooldownMin = 15f;
     [SerializeField] private float waveCooldownMax = 45f;
@@ -19,14 +20,25 @@ public class ZombieSpawner : MonoBehaviour
     private List<GameObject> players = new List<GameObject>();
     private float waveCooldown = 0;
     private float spawnCooldown = 0;
+    private int totalWeight = 0;
 
     void Start()
     {
+        foreach (int weight in weights)
+        {
+            totalWeight += weight;
+        }
+
         Transform spawnPointsParent = transform.Find("SpawnPoints");
         zombiesToSpawn = initialZombiesToSpawn;
 
         foreach (Transform t in spawnPointsParent) {
             spawnPoints.Add(t);
+        }
+
+        Transform displayObj = transform.Find("Display");
+        if (displayObj != null) {
+            Destroy(displayObj.gameObject);
         }
     }
 
@@ -37,7 +49,7 @@ public class ZombieSpawner : MonoBehaviour
         if (Time.time < spawnCooldown) return;
 
         int spawnPointIndex = Random.Range(0, spawnPoints.Count);
-        int zombieIndex = Random.Range(0, zombies.Count);
+        int zombieIndex = GetWeightedRandomIndex();
 
         if (!ignoreRay && CheckLineOfSight(spawnPointIndex)) return;
 
@@ -83,5 +95,20 @@ public class ZombieSpawner : MonoBehaviour
     {
         Debug.Log("Player left spawner range");
         players.Remove(other.gameObject);
+    }
+
+    private int GetWeightedRandomIndex()
+    {
+        int randomValue = Random.Range(0, totalWeight);
+        for (int i = 0; i < weights.Length; i++)
+        {
+            if (randomValue < weights[i])
+            {
+                return i;
+            }
+            randomValue -= weights[i];
+        }
+
+        return zombies.Count - 1;
     }
 }

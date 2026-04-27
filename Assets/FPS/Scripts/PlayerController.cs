@@ -1,9 +1,5 @@
-using System;
-using System.Threading;
-using UnityEditor.AdaptivePerformance.Editor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -48,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
         health = GetComponent<Health>();
         health.onDeath += OnDeath;
+        health.ApplyModifier(-1f * GameState.Instance.GameModifier());
 
         audioSource = GetComponentInChildren<AudioSource>();
         flashlight = GetComponentInChildren<Light>();
@@ -65,9 +62,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnDeath(GameObject source)
     {
-        // Handle player death (e.g., respawn, show game over screen, etc.)
-        Debug.Log("Player has died.");
-        Destroy(gameObject);
+        //Time.timeScale = 0f;
+        FPSUI.Instance.ChangeMenu(2); 
     }
 
     // Update is called once per frame
@@ -119,6 +115,7 @@ public class PlayerController : MonoBehaviour
 
     void OnLook(InputValue inputValue)
     {
+        if (Time.timeScale == 0f) return;
         Vector2 tmp = inputValue.Get<Vector2>();
 
         float mouseX = tmp.x * mouseSensitivity;
@@ -134,9 +131,26 @@ public class PlayerController : MonoBehaviour
     {
         flashlight.enabled = !flashlight.enabled;
     }
+
+    void OnMenu()
+    {
+        if (health.GetHealth() <= 0)   
+        {
+            FPSUI.Instance.ExitToMainMenu();
+        }
+    }
+
+    void OnHeal()
+    {
+        if (healthPacks <= 0) return;
+
+        healthPacks--;
+        health.Heal(Mathf.CeilToInt(35 * (1f - GameState.Instance.GameModifier())));
+    }
     
     public void AimDownSights(float? factor = null)
     {
+        if (Time.timeScale == 0f) return;
         if (factor.HasValue)
         {
             mouseSensitivity = baseMouseSensitivity * factor.Value;
@@ -151,6 +165,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleMouseLook()
     {
+        if (Time.timeScale == 0f) return;
         float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
         float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;
 

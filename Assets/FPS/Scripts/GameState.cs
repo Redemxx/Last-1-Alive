@@ -15,5 +15,8 @@ public class GameState : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public int gamemode;
+    public int gamemode = 1;
+    public float[] gameModifiers = {-0.35f, 0f, 0.25f};
+
+    public float GameModifier() { return gameModifiers[gamemode]; }
 }

@@ -13,6 +13,8 @@ public class GunState : MonoBehaviour
     {
         if (transferredAmmo) return;
 
+        maxAmmo = Mathf.CeilToInt(maxAmmo * (1f - GameState.Instance.GameModifier()));
+
         currentMag = magazineSize;
         currentAmmo = maxAmmo;
     }

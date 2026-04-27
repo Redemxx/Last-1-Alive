@@ -39,4 +39,10 @@ public class Health : MonoBehaviour
             health = basehealth;
         }
     }
+
+    public void ApplyModifier(float modifier)
+    {
+        basehealth = Mathf.CeilToInt(basehealth * (1f + modifier));
+        health = basehealth;
+    }
 }

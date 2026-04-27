@@ -30,4 +30,12 @@ public class SmashLight : MonoBehaviour
         audioSource.Play();
         lightCover.SetActive(true);
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !isSmashed)
+        {
+            health.TakeDamage(other.gameObject, 9999);
+        }
+    }
 }

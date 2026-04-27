@@ -22,7 +22,7 @@ public class SunController : MonoBehaviour
         while (elapsedTime < duration)
         {
             tr.rotation = Quaternion.Slerp(startRotation, endRotation, elapsedTime / duration);
-            light.intensity = Mathf.Lerp(1f, 0f, elapsedTime / (duration /2 ));
+            light.intensity = Mathf.Lerp(1f, 0f, elapsedTime / (duration / 3 ));
             light.intensity = Mathf.Clamp(light.intensity, 0f, 1f);
             elapsedTime += Time.deltaTime;
             yield return null;

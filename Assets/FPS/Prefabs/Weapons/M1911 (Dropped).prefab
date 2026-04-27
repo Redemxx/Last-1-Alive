@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunState
   magazineSize: 8
-  maxAmmo: 96
+  maxAmmo: 64
   currentMag: 0
   currentAmmo: 0
   transferredAmmo: 0
@@ -351,7 +351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826f5137235b4b246ba8a78441fb740e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pickup
-  action: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: ad9f1e19c4cde2d4c822a67a4ae301d2, type: 2}
   lookRange: 3
 --- !u!114 &4073722229167942394
