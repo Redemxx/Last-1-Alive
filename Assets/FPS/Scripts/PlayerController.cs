@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDeath(GameObject source)
     {
-        //Time.timeScale = 0f;
+        Time.timeScale = 0f;
         FPSUI.Instance.ChangeMenu(2); 
     }
 

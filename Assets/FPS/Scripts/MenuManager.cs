@@ -18,6 +18,7 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 1f;
         titleScreen = menu.transform.Find("TitleScreen").gameObject;
         creditsScreen = menu.transform.Find("CreditsScreen").gameObject;
