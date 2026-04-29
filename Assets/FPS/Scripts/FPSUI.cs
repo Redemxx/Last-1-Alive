@@ -19,6 +19,7 @@ public class FPSUI : MonoBehaviour
     private GameObject playerUI;
     private GameObject winScreen;
     private GameObject deathScreen;
+    private GameObject pauseMenu;
 
     private void Awake()
     {
@@ -29,7 +30,6 @@ public class FPSUI : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
@@ -37,6 +37,7 @@ public class FPSUI : MonoBehaviour
         deathScreen = transform.Find("Death").gameObject;
         winScreen = transform.Find("Win").gameObject;
         playerUI = transform.Find("UI").gameObject;
+        pauseMenu = transform.Find("Pause").gameObject;
         health = playerUI.transform.Find("Health").GetComponent<TMP_Text>();
         ammo = playerUI.transform.Find("Ammo").GetComponent<TMP_Text>();
         healthKits = playerUI.transform.Find("HealthKits").GetComponent<TMP_Text>();
@@ -46,7 +47,17 @@ public class FPSUI : MonoBehaviour
         playerController = player.GetComponent<PlayerController>();
         playerHealth = player.GetComponent<Health>();
 
-        StartCoroutine(DelayMessage("Press F to toggle flashlight", 18f));
+        Transform resume = pauseMenu.transform.Find("Resume");
+        UnityEngine.UI.Button resumeButton = resume.GetComponent<UnityEngine.UI.Button>();
+        resumeButton.onClick.AddListener(ResumeGame);
+
+        Debug.Log("Resume: " + resume + " Button: " + resumeButton);
+
+        pauseMenu.transform.Find("Exit").GetComponent<UnityEngine.UI.Button>().onClick.AddListener(ExitToMainMenu);
+        pauseMenu.transform.Find("Volume").GetComponent<UnityEngine.UI.Slider>().onValueChanged.AddListener(HandleVolume);
+
+        Debug.Log("Finished setting up UI");
+        ChangeMenu(0);
     }
 
     void Update()
@@ -86,18 +97,27 @@ public class FPSUI : MonoBehaviour
         {
             case 0:
                 playerUI.SetActive(true);
-                winScreen.SetActive(false);
+                pauseMenu.SetActive(false);
                 deathScreen.SetActive(false);
+                winScreen.SetActive(false);
                 break;
             case 1:
                 playerUI.SetActive(false);
-                winScreen.SetActive(true);
+                pauseMenu.SetActive(true);
                 deathScreen.SetActive(false);
+                winScreen.SetActive(false);
                 break;
             case 2:
                 playerUI.SetActive(false);
-                winScreen.SetActive(false);
+                pauseMenu.SetActive(false);
                 deathScreen.SetActive(true);
+                winScreen.SetActive(false);
+                break;
+            case 3:
+                playerUI.SetActive(false);
+                pauseMenu.SetActive(false);
+                deathScreen.SetActive(false);
+                winScreen.SetActive(true);
                 break;
             default:
                 break;
@@ -106,19 +126,28 @@ public class FPSUI : MonoBehaviour
 
     public void ResumeGame()
     {
+        Debug.Log("Resuming game...");
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
         ChangeMenu(0);
         Time.timeScale = 1f;
     }
 
     public void PauseGame()
     {
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
         ChangeMenu(1);
         Time.timeScale = 0f;
     }
 
+    public void HandleVolume(float volume) => AudioListener.volume = volume * volume;
+
     public void ExitToMainMenu()
     {
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Destroy(gameObject);
         SceneManager.LoadScene("Main Menu");
     }

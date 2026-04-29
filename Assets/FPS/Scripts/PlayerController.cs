@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private AudioClip pickupSound;
     public int healthPacks;
+    public bool hasFlashlight;
 
     private float xRotation = 0f;
     private Vector2 lookInput;
@@ -70,7 +71,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         CheckGround();
-        HandleMouseLook();
     }
 
     void FixedUpdate()
@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
 
     void OnJump()
     {
+        if (Time.timeScale == 0) return;
         if (isGrounded)
         {
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
@@ -94,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
     void OnRun()
     {
+        if (Time.timeScale == 0) return;
         if (isGrounded && stamina > 0)
             isRunning = true;
     }
@@ -110,6 +112,7 @@ public class PlayerController : MonoBehaviour
     
     void OnMovement(InputValue inputValue)
     {
+        if (Time.timeScale == 0) return;
         moveInput = inputValue.Get<Vector2>();
     }   
 
@@ -129,6 +132,8 @@ public class PlayerController : MonoBehaviour
 
     void OnToggleLight()
     {
+        if (Time.timeScale == 0) return;
+        if (!hasFlashlight) return;
         flashlight.enabled = !flashlight.enabled;
     }
 
@@ -138,10 +143,18 @@ public class PlayerController : MonoBehaviour
         {
             FPSUI.Instance.ExitToMainMenu();
         }
+        else
+        {
+            if (Time.timeScale == 0f)
+                FPSUI.Instance.ResumeGame();
+            else
+                FPSUI.Instance.PauseGame();
+        }
     }
 
     void OnHeal()
     {
+        if (Time.timeScale == 0) return;
         if (healthPacks <= 0) return;
 
         healthPacks--;
@@ -161,18 +174,6 @@ public class PlayerController : MonoBehaviour
             mouseSensitivity = baseMouseSensitivity;
             isZoomed = false;
         }
-    }
-
-    void HandleMouseLook()
-    {
-        if (Time.timeScale == 0f) return;
-        float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
-        float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;
-
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90, 90);
-        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
     }
 
     void MovePlayer()

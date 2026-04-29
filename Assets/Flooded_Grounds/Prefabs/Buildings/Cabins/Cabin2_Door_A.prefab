@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 3368578}
   - component: {fileID: 2358182}
   - component: {fileID: 6501828}
-  m_Layer: 0
+  - component: {fileID: 6277731981112992955}
+  - component: {fileID: 7490108636217695955}
+  m_Layer: 10
   m_Name: Cabin2_Door_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,3 +114,29 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.6141279, y: 3.319395, z: 0.2044397}
   m_Center: {x: -0.7778183, y: 1.6596978, z: -0.010840289}
+--- !u!114 &6277731981112992955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af8076b57b1e36b43b0dc42aa30218b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  basehealth: 8
+--- !u!114 &7490108636217695955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac265807da9934346addd778d4230bf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Breakable
+  breakSound: {fileID: 8300000, guid: ee36422e1edb4d347bde1e74f1d1f8a8, type: 3}

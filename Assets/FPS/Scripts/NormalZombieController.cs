@@ -18,6 +18,17 @@ public class NormalZombieController : MonoBehaviour
     [SerializeField] private int attackDamage = 10;
     [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] private float attackDistance = 1.0f;
+    [SerializeField] private float chasingSpeed = 5f;
+    [SerializeField] private float wanderingSpeed = 1.5f;
+    [SerializeField] private float wanderChance = 0.1f/100f;
+
+    [SerializeField] private bool idleAnimationIsFloat = true;
+    [SerializeField] private bool moveAnimationIsFloat = true;
+    [SerializeField] private bool deathAnimationIsFloat = true;
+    [SerializeField] private float idleAnimationsRandge = 1;
+    [SerializeField] private float moveAnimationsRange = 1;
+    [SerializeField] private float deathAnimationsRange = 1;
+
 
     private Health health;
     private NavMeshAgent nav;
@@ -30,6 +41,7 @@ public class NormalZombieController : MonoBehaviour
     private float nextAttackTime = 0f;
     private float nextSoundTime = 0f;
     private bool isDead = false;
+    private int wanderOffset;
 
     void Start()
     {
@@ -53,7 +65,19 @@ public class NormalZombieController : MonoBehaviour
         deathHash = Animator.StringToHash("Death");
         pausedHash = Animator.StringToHash("Paused");
 
+        float idleType = idleAnimationIsFloat ? Random.Range(0f, idleAnimationsRandge) : Random.Range(0, (int)idleAnimationsRandge + 1);
+        animator.SetFloat("IdleType", idleType);
+        Debug.Log("idle type: " + animator.GetFloat("IdleType"));
+        float walkType = moveAnimationIsFloat ? Random.Range(0f, moveAnimationsRange) : Random.Range(0, (int)moveAnimationsRange + 1);
+        animator.SetFloat("WalkType", walkType);
+        Debug.Log("walk type: " + animator.GetFloat("WalkType"));
+        float deathType = deathAnimationIsFloat ? Random.Range(0f, deathAnimationsRange) : Random.Range(0, (int)deathAnimationsRange + 1);
+        Debug.Log(deathType);
+        animator.SetFloat("DeathType", deathType);
+        Debug.Log("death type: " + animator.GetFloat("DeathType"));
+
         nextSoundTime = Time.time + UnityEngine.Random.Range(0f, 60f);
+        wanderOffset = Random.Range(0, 60);
     }
 
     void Update()
@@ -79,6 +103,10 @@ public class NormalZombieController : MonoBehaviour
                 animator.SetBool("Moving", true);
                 nav.SetDestination(target.transform.position);
             }
+        }
+
+        if (Time.frameCount%(60) == wanderOffset && Random.Range(0f, 1f) > wanderChance) { 
+            // Set random dest
         }
     }
 
@@ -119,6 +147,7 @@ public class NormalZombieController : MonoBehaviour
         if (isDead) yield break;
         yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 1.5f));
         target = obj;
+        nav.speed = chasingSpeed;
         animator.SetBool("Moving", true);
     }
 
@@ -158,28 +187,15 @@ public class NormalZombieController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             AlertZombies(other.gameObject);
-            //target = other.gameObject;
-            //audioSource.PlayOneShot(zombieScream);
-            //animator.SetBool("Engaged", true);
-
-            //// Alert nearby zombies
-            //foreach (var collider in colliders)
-            //{
-            //    if (collider != null &&collider.CompareTag("Zombie"))
-            //    {
-            //        var zombieController = collider.gameObject.GetComponent<NormalZombieController>();
-            //        if (zombieController != null)
-            //        {
-            //            StartCoroutine(zombieController.Engage(target));
-            //        }
-            //    }
-            //}
+            target = other.gameObject;
+            nav.speed = chasingSpeed;
         }
     }
 
     private void AlertZombies(GameObject source)
     {
         target = source;
+        nav.speed = chasingSpeed;
         audioSource.PlayOneShot(zombieScream);
         animator.SetBool("Engaged", true);
 
@@ -224,9 +240,7 @@ public class NormalZombieController : MonoBehaviour
 
     public void OnAlerted(GameObject source)
     {
-        //target = source;
-        //nav.SetDestination(source.transform.position);
-        //animator.SetBool("Moving", true);
+        if (target != null) return;
         health.onDamaged -= OnAlerted;
         AlertZombies(source);
     }

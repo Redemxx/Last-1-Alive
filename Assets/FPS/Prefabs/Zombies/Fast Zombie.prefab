@@ -1812,6 +1812,12 @@ MonoBehaviour:
   attackDamage: 15
   attackCooldown: 0.8
   attackDistance: 3
+  idleAnimationIsFloat: 1
+  moveAnimationIsFloat: 0
+  deathAnimationIsFloat: 0
+  idleAnimationsRandge: 1
+  moveAnimationsRange: 1
+  deathAnimationsRange: 1
 --- !u!136 &784684796229811536
 CapsuleCollider:
   m_ObjectHideFlags: 0

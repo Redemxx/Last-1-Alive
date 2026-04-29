@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
@@ -10,6 +12,7 @@ public class PlayerShooting : MonoBehaviour
     public PlayerController playerController { get; private set; }
     private Camera playerCam;
     private float baseFOV;
+    private List<Collider> zombies = new List<Collider>();
 
     void Start()
     {
@@ -28,6 +31,7 @@ public class PlayerShooting : MonoBehaviour
 
     void OnShoot()
     {
+        if (Time.timeScale == 0) return;
         if (gun == null) return;
         isShooting = true;
     }
@@ -39,6 +43,7 @@ public class PlayerShooting : MonoBehaviour
 
     void OnReload()
     {
+        if (Time.timeScale == 0) return;
         if (gun == null) return;
 
         gun.TryReload();
@@ -47,6 +52,7 @@ public class PlayerShooting : MonoBehaviour
 
     void OnZoom()
     {
+        if (Time.timeScale == 0) return;
         if (gun == null) return;
         playerController.AimDownSights(gun.aimDownSightsFOV / 100);
         playerCam.fieldOfView = gun.aimDownSightsFOV;
@@ -60,6 +66,7 @@ public class PlayerShooting : MonoBehaviour
 
     public void OnDrop()
     {
+        if (Time.timeScale == 0) return;
         if (gun == null) return;
 
         gun.Drop();
@@ -68,6 +75,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0) return;
         if (gun != null && isShooting && gun.CheckCooldown()) { 
             if (gun.gunState.currentMag <= 0)
             {
@@ -78,7 +86,31 @@ public class PlayerShooting : MonoBehaviour
             else
             {
                 gun.Shoot();
+
+                foreach (Collider zombie in zombies)
+                {
+                    if (zombie == null) continue;
+                    NormalZombieController zombieController = zombie.GetComponent<NormalZombieController>();
+                    if (zombieController == null) continue;
+                    zombieController.OnAlerted(gameObject);
+                }
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Zombie"))
+        {
+            zombies.Add(other);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Zombie"))
+        {
+            zombies.Remove(other);
         }
     }
 }

@@ -8,7 +8,8 @@ public class Win : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             triggered = true;
-            FPSUI.Instance.PauseGame();
+            Time.timeScale = 0f;
+            FPSUI.Instance.ChangeMenu(3);
         }
     }
 

@@ -12,6 +12,9 @@ public class FPSDisplay : MonoBehaviour
 	
 	void OnGUI()
 	{
+		return;
+		if (Time.timeScale == 0f) return;
+
 		int w = Screen.width, h = Screen.height;
 		
 		GUIStyle style = new GUIStyle();
