@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 lookInput;
 
     private Rigidbody rb;
+    private Animator animator;
     public Health health { get; private set; }
     private AudioSource audioSource;
     private Light flashlight;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         playerInput = new PlayerInput();
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
@@ -67,15 +69,17 @@ public class PlayerController : MonoBehaviour
         FPSUI.Instance.ChangeMenu(2); 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        CheckGround();
-    }
-
     void FixedUpdate()
     {
+        CheckGround();
         MovePlayer();
+
+        Debug.Log(rb.linearVelocity.sqrMagnitude);
+        if (rb.linearVelocity.sqrMagnitude <= 0.5f) {
+            animator.SetBool("Moving", false);
+        } else {
+            animator.SetBool("Moving", true);
+        }
 
         if (!isRunning && stamina < maxStamina)
         {
@@ -89,6 +93,7 @@ public class PlayerController : MonoBehaviour
         if (Time.timeScale == 0) return;
         if (isGrounded)
         {
+            animator.SetTrigger("Jump");
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
         }
     }
@@ -97,12 +102,16 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.timeScale == 0) return;
         if (isGrounded && stamina > 0)
+        {
+            animator.SetBool("Running", true);
             isRunning = true;
+        }
     }
 
     void OnRunEnd()
     {
         isRunning = false;
+        animator.SetBool("Running", false);
     }
 
     void CheckGround()
@@ -187,6 +196,7 @@ public class PlayerController : MonoBehaviour
         {
             stamina = 0;
             isRunning = false;
+            animator.SetBool("Running", false);
         }
 
         float movementSpeed = isRunning ? runSpeed : moveSpeed;
