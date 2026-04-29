@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
-
 
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -19,8 +17,9 @@ public class NormalZombieController : MonoBehaviour
     [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] private float attackDistance = 1.0f;
     [SerializeField] private float chasingSpeed = 5f;
-    [SerializeField] private float wanderingSpeed = 1.5f;
+    [SerializeField] private float wanderingSpeed = 0.8f;
     [SerializeField] private float wanderChance = 0.1f/100f;
+    [SerializeField] private float wanderRange = 5f;
 
     [SerializeField] private bool idleAnimationIsFloat = true;
     [SerializeField] private bool moveAnimationIsFloat = true;
@@ -67,22 +66,25 @@ public class NormalZombieController : MonoBehaviour
 
         float idleType = idleAnimationIsFloat ? Random.Range(0f, idleAnimationsRandge) : Random.Range(0, (int)idleAnimationsRandge + 1);
         animator.SetFloat("IdleType", idleType);
-        Debug.Log("idle type: " + animator.GetFloat("IdleType"));
         float walkType = moveAnimationIsFloat ? Random.Range(0f, moveAnimationsRange) : Random.Range(0, (int)moveAnimationsRange + 1);
         animator.SetFloat("WalkType", walkType);
-        Debug.Log("walk type: " + animator.GetFloat("WalkType"));
         float deathType = deathAnimationIsFloat ? Random.Range(0f, deathAnimationsRange) : Random.Range(0, (int)deathAnimationsRange + 1);
-        Debug.Log(deathType);
         animator.SetFloat("DeathType", deathType);
-        Debug.Log("death type: " + animator.GetFloat("DeathType"));
 
         nextSoundTime = Time.time + UnityEngine.Random.Range(0f, 60f);
         wanderOffset = Random.Range(0, 60);
     }
 
-    void Update()
+    //void Update()
+    //{
+        
+    //}
+
+    private int updateCounter = 0;
+    private void FixedUpdate()
     {
         if (isDead) return;
+        animator.SetFloat("Velocity", nav.velocity.magnitude);
 
         if (Time.time >= nextSoundTime)
         {
@@ -97,16 +99,30 @@ public class NormalZombieController : MonoBehaviour
             {
                 Attack();
             }
-            
+
             int currentStateHash = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
-            if (currentStateHash == chaseHash || (currentStateHash == pausedHash && Time.time > nextAttackTime)) { 
-                animator.SetBool("Moving", true);
+            if (currentStateHash == chaseHash || (currentStateHash == pausedHash && Time.time > nextAttackTime))
+            {
                 nav.SetDestination(target.transform.position);
             }
+        }else if (updateCounter % (50) == wanderOffset && nav.velocity.magnitude <= 0.1 && Random.Range(0f, 1f) <= wanderChance)
+        {
+            //nav.SetDestination(Random.insideUnitCircle * wanderRange);
+            Wander();
         }
+        updateCounter++;
+    }
 
-        if (Time.frameCount%(60) == wanderOffset && Random.Range(0f, 1f) > wanderChance) { 
-            // Set random dest
+    private void Wander()
+    {
+        if (isDead) return;
+        Vector3 wanderTarget = transform.position + Random.onUnitSphere * Random.Range(wanderRange * 0.4f, wanderRange);
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(wanderTarget, out hit, wanderRange, NavMesh.AllAreas))
+        {
+            nav.speed = wanderingSpeed;
+            nav.SetDestination(hit.position);
+            animator.SetTrigger("Wander");
         }
     }
 
@@ -128,7 +144,11 @@ public class NormalZombieController : MonoBehaviour
         if (isDead) yield break;
 
         float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-        if (distanceToTarget > attackDistance) yield break;
+        if (distanceToTarget > attackDistance)
+        {
+            animator.SetBool("Moving", true);
+            yield break;
+        }
 
         Health player = target.GetComponentInParent<Health>();
         if (player != null)
@@ -146,9 +166,7 @@ public class NormalZombieController : MonoBehaviour
     {
         if (isDead) yield break;
         yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 1.5f));
-        target = obj;
-        nav.speed = chasingSpeed;
-        animator.SetBool("Moving", true);
+        StartChase(obj);
     }
 
     private IEnumerator TurnToward(GameObject obj)
@@ -187,22 +205,31 @@ public class NormalZombieController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             AlertZombies(other.gameObject);
-            target = other.gameObject;
-            nav.speed = chasingSpeed;
+            StartChase(other.gameObject);
         }
+    }
+
+    private void StartChase(GameObject obj)
+    {
+        nav.isStopped = false;
+        nav.speed = chasingSpeed;
+        target = obj;
+        animator.SetBool("Moving", true);
     }
 
     private void AlertZombies(GameObject source)
     {
-        target = source;
-        nav.speed = chasingSpeed;
-        audioSource.PlayOneShot(zombieScream);
-        animator.SetBool("Engaged", true);
+        if (isDead) return;
+        if (target != null) return;
 
-        StartCoroutine(AlertZombiesCont());
+        nav.isStopped = true;
+        animator.SetBool("Engaged", true);
+        audioSource.PlayOneShot(zombieScream);
+
+        StartCoroutine(AlertZombiesCont(source));
     }
 
-    public IEnumerator AlertZombiesCont() {
+    public IEnumerator AlertZombiesCont(GameObject source) {
         yield return new WaitForSeconds(2f);
 
         if (isDead) yield break;
@@ -214,10 +241,11 @@ public class NormalZombieController : MonoBehaviour
                 var zombieController = collider.gameObject.GetComponent<NormalZombieController>();
                 if (zombieController != null)
                 {
-                    StartCoroutine(zombieController.Engage(target));
+                    StartCoroutine(zombieController.Engage(source));
                 }
             }
         }
+        StartChase(source);
         yield break;
     }
 

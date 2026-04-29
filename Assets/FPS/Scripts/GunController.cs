@@ -10,6 +10,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private float magPullDistance = 0.3f;
     [SerializeField] private Vector3 magPullDirection = new Vector3(0, -1, 0);
     [SerializeField] private int baseDamage = 1;
+    [SerializeField] private float falloffFactor = 0f;
     [SerializeField] private GameObject bullet;
     [SerializeField] private float recoilDistance = 0.1f;
     [SerializeField] private float recoilReturnSpeed = 0.12f;
@@ -76,15 +77,14 @@ public class GunController : MonoBehaviour
         Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, hitMask))
         {
-            Debug.Log("Hit " + hit.collider.name);
             Health target = hit.collider.GetComponent<Health>();
             if (target != null)
             {
-                target.TakeDamage(gameObject, baseDamage);
+                float damageDelt = baseDamage - (falloffFactor * hit.distance * hit.distance);
+                target.TakeDamage(gameObject, damageDelt);
                 internalSound.PlayOneShot(hitSound);
             }
         }
-
 
         StopCoroutine(nameof(Recoil));
         StartCoroutine(nameof(Recoil));

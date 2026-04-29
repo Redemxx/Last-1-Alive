@@ -2607,7 +2607,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 9
   baseMouseSensitivity: 0.5
-  playerCamera: {fileID: 5379634160851536406}
+  playerCamera: {fileID: 4477850912162503743}
   pickupSound: {fileID: 8300000, guid: 1239586a54051644eaaf623d837ff151, type: 3}
   healthPacks: 0
   hasFlashlight: 0

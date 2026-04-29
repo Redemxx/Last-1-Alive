@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PickupGun : InteractAction
 {
-    public GameObject weaponPrefab;
     private PlayerShooting player;
     private PlayerController playerController;
     private GunState gunState;
@@ -16,12 +15,10 @@ public class PickupGun : InteractAction
 
     public override bool InvokeAction()
     {
-        player.OnDrop();
-
-        GameObject newGun = Instantiate(weaponPrefab, player.holder.transform);
+        GameObject newGun = Instantiate(gunState.weaponPrefab, player.holder.transform);
         newGun.transform.localPosition = Vector3.zero;
         newGun.transform.localRotation = Quaternion.identity;
-        player.gun = newGun.GetComponent<GunController>();
+        playerController.PlayPickupSound();
 
         GunState otherGun = newGun.GetComponent<GunState>();
         if (otherGun != null)
@@ -29,8 +26,11 @@ public class PickupGun : InteractAction
             otherGun.transferredAmmo = true;
             otherGun.currentAmmo = gunState.currentAmmo;
             otherGun.currentMag = gunState.currentMag;
+            otherGun.magazineSize = gunState.magazineSize;
+            otherGun.maxAmmo = gunState.maxAmmo;
+            otherGun.weaponPrefab = gunState.weaponPrefab;
         }
-        playerController.PlayPickupSound();
+        player.PickupGun(newGun);
         Destroy(gameObject);
         return true;
     }

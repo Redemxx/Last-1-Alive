@@ -1812,6 +1812,10 @@ MonoBehaviour:
   attackDamage: 15
   attackCooldown: 0.8
   attackDistance: 3
+  chasingSpeed: 10
+  wanderingSpeed: 1.5
+  wanderChance: 0.0055555557
+  wanderRange: 10
   idleAnimationIsFloat: 1
   moveAnimationIsFloat: 0
   deathAnimationIsFloat: 0

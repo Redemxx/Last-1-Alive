@@ -51,18 +51,16 @@ public class FPSUI : MonoBehaviour
         UnityEngine.UI.Button resumeButton = resume.GetComponent<UnityEngine.UI.Button>();
         resumeButton.onClick.AddListener(ResumeGame);
 
-        Debug.Log("Resume: " + resume + " Button: " + resumeButton);
 
         pauseMenu.transform.Find("Exit").GetComponent<UnityEngine.UI.Button>().onClick.AddListener(ExitToMainMenu);
         pauseMenu.transform.Find("Volume").GetComponent<UnityEngine.UI.Slider>().onValueChanged.AddListener(HandleVolume);
 
-        Debug.Log("Finished setting up UI");
         ChangeMenu(0);
     }
 
     void Update()
     {
-        health.text = "" + playerHealth.GetHealth();
+        health.text = "" + Mathf.CeilToInt(playerHealth.GetHealth());
 
         GunController gun = playerShooting.gun;
         if (gun != null) { 
@@ -126,7 +124,6 @@ public class FPSUI : MonoBehaviour
 
     public void ResumeGame()
     {
-        Debug.Log("Resuming game...");
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
         ChangeMenu(0);

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6770388485563408561}
   - component: {fileID: 8066448874449177362}
   - component: {fileID: 4890038290328697605}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SimpleZombieSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 2886564708651965320}
   - component: {fileID: 4169118580455082781}
   - component: {fileID: 6865127236675058146}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

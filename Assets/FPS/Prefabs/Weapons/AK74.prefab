@@ -294,6 +294,7 @@ MonoBehaviour:
   magPullDistance: 0.14
   magPullDirection: {x: 0, y: -1, z: 0}
   baseDamage: 12
+  falloffFactor: 0.001
   bullet: {fileID: 600757924290632880, guid: 5a1a274747a523a4fbdb0ea30888f755, type: 3}
   recoilDistance: 0.03
   recoilReturnSpeed: 0.05
@@ -317,6 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58deec2e023211647b0988aa7d939f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunState
+  weaponPrefab: {fileID: 0}
   magazineSize: 30
   maxAmmo: 240
   currentMag: 0

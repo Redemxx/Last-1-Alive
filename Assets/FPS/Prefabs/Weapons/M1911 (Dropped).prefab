@@ -334,6 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58deec2e023211647b0988aa7d939f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunState
+  weaponPrefab: {fileID: 1694449805434718, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
   magazineSize: 8
   maxAmmo: 64
   currentMag: 0
@@ -365,7 +366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ef43424f236d64487876e20a0fffa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupGun
-  weaponPrefab: {fileID: 1694449805434718, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
 --- !u!1 &1748277932983872
 GameObject:
   m_ObjectHideFlags: 0

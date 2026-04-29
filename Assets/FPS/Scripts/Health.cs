@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int basehealth;
+    [SerializeField] private float basehealth;
 
-    private int health;
+    private float health;
     public Action<GameObject> onDeath;
     public Action<GameObject> onDamaged;
 
@@ -14,10 +14,10 @@ public class Health : MonoBehaviour
         health = basehealth;
     }
 
-    public void TakeDamage(GameObject source, int damage)
+    public void TakeDamage(GameObject source, float damage)
     {
         health -= damage;
-        if (health <= 0)
+        if (health <= 0f)
         {
             onDeath.Invoke(source);
             return;
@@ -26,12 +26,17 @@ public class Health : MonoBehaviour
         onDamaged?.Invoke(source);
     }
 
-    public int GetHealth()
+    public float GetHealth()
     {
         return health;
     }
 
-    public void Heal(int amount)
+    public float GetBaseHealth()
+    {
+        return basehealth;
+    }
+
+    public void Heal(float amount)
     {
         health += amount;
         if (health > basehealth)
@@ -42,7 +47,8 @@ public class Health : MonoBehaviour
 
     public void ApplyModifier(float modifier)
     {
-        basehealth = Mathf.CeilToInt(basehealth * (1f + modifier));
+        basehealth = basehealth * (1f + modifier);
+        basehealth = Mathf.CeilToInt(basehealth);
         health = basehealth;
     }
 }

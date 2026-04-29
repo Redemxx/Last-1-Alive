@@ -3,6 +3,7 @@ using UnityEngine;
 public class GunState : MonoBehaviour
 {
 
+    public GameObject weaponPrefab;
     public int magazineSize = 10;
     public int maxAmmo = 60;
     [HideInInspector] public int currentMag;

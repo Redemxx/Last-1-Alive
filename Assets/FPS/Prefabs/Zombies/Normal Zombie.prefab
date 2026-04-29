@@ -602,6 +602,10 @@ MonoBehaviour:
   attackDamage: 10
   attackCooldown: 1.5
   attackDistance: 3
+  chasingSpeed: 5
+  wanderingSpeed: 0.8
+  wanderChance: 0.0125
+  wanderRange: 10
   idleAnimationIsFloat: 1
   moveAnimationIsFloat: 1
   deathAnimationIsFloat: 0
