@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngineInternal;
 
 public class GunController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GunController : MonoBehaviour
     [SerializeField] private Vector3 magPullDirection = new Vector3(0, -1, 0);
     [SerializeField] private int baseDamage = 1;
     [SerializeField] private float falloffFactor = 0f;
+    [SerializeField] private int concurrentBullets = 1;
+    [SerializeField] private float spreadAngle = 0f;
     [SerializeField] private GameObject bullet;
     [SerializeField] private float recoilDistance = 0.1f;
     [SerializeField] private float recoilReturnSpeed = 0.12f;
@@ -18,6 +21,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private GameObject weaponFlash;
     [SerializeField] private AudioClip gunSound;
     [SerializeField] private AudioClip hitSound;
+    [SerializeField] private AudioClip headshotSound;
     [SerializeField] private AudioClip reloadSound;
     [SerializeField] private AudioClip magEmpty;
     [Range(10f, 100f)] public float aimDownSightsFOV = 40f;
@@ -69,20 +73,65 @@ public class GunController : MonoBehaviour
 
         internalSound.PlayOneShot(gunSound);
 
-        Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        //Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
 
         GameObject flash = Instantiate(weaponFlash, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         flash.transform.SetParent(bulletSpawnPoint.transform);
 
-        Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, hitMask))
+        //Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
+        //if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, hitMask))
+        //{
+        //    bool isHeadshot = hit.collider.CompareTag("ZombieHead");
+
+        //    Health target;
+        //    if (isHeadshot)
+        //    {
+        //        target = hit.collider.GetComponentInParent<Health>();
+        //    }
+        //    else
+        //    {
+        //        target = hit.collider.GetComponent<Health>();
+        //    }
+            
+        //    if (target != null)
+        //    {
+        //        float damageDelt = baseDamage - (falloffFactor * hit.distance * hit.distance);
+        //        if (isHeadshot) damageDelt *= 2;
+        //        if (isHeadshot) Debug.Log("Headshot");
+        //        target.TakeDamage(gameObject, damageDelt);
+        //        internalSound.PlayOneShot(isHeadshot ? headshotSound : hitSound);
+        //    }
+        //}
+
+        for (int i = 0; i < concurrentBullets; i++)
         {
-            Health target = hit.collider.GetComponent<Health>();
-            if (target != null)
+            Quaternion spreadRotation = Quaternion.Euler(UnityEngine.Random.Range(-spreadAngle, spreadAngle), UnityEngine.Random.Range(-spreadAngle, spreadAngle), 0);
+            Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation * spreadRotation);
+
+            Vector3 spreadDirection = spreadRotation * playerCam.transform.forward;
+            Ray ray = new Ray(playerCam.transform.position, spreadDirection);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, hitMask))
             {
-                float damageDelt = baseDamage - (falloffFactor * hit.distance * hit.distance);
-                target.TakeDamage(gameObject, damageDelt);
-                internalSound.PlayOneShot(hitSound);
+                bool isHeadshot = hit.collider.CompareTag("ZombieHead");
+
+                Health target;
+                if (isHeadshot)
+                {
+                    target = hit.collider.GetComponentInParent<Health>();
+                }
+                else
+                {
+                    target = hit.collider.GetComponent<Health>();
+                }
+
+                if (target != null)
+                {
+                    float damageDelt = baseDamage - (falloffFactor * hit.distance * hit.distance);
+                    if (isHeadshot) damageDelt *= 2;
+                    if (isHeadshot) Debug.Log("Headshot");
+                    target.TakeDamage(gameObject, damageDelt);
+                    internalSound.PlayOneShot(isHeadshot ? headshotSound : hitSound);
+                }
             }
         }
 
@@ -138,16 +187,19 @@ public class GunController : MonoBehaviour
         return true;
     }
 
-    public bool FullReload(float reloadWeight)
+    public int ReloadAmmo(int maxCount)
     {
-        if (gunState.currentAmmo == gunState.maxAmmo && gunState.currentMag == gunState.magazineSize) return false;
+        if (gunState.currentAmmo == gunState.maxAmmo && gunState.currentMag == gunState.magazineSize) return 0;
 
         int needInMag = gunState.magazineSize - gunState.currentMag;
-        gunState.currentAmmo = Mathf.RoundToInt(gunState.maxAmmo * reloadWeight) + needInMag;
+        int neededAmmmo = gunState.maxAmmo - gunState.currentAmmo;
+        int totalNeeded = needInMag + neededAmmmo;
+        totalNeeded = Mathf.Min(totalNeeded, maxCount);
+        gunState.currentAmmo += totalNeeded;
     
         if (needInMag > 0)
             StartCoroutine(Reload());
-        return true;
+        return totalNeeded;
     }
 
     private IEnumerator Recoil()

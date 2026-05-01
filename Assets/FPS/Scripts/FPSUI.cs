@@ -10,6 +10,7 @@ public class FPSUI : MonoBehaviour
     private TMP_Text health;
     private TMP_Text ammo;
     private TMP_Text healthKits;
+    private TMP_Text grenades;
     private Transform messageSpawnPoint;
     [SerializeField] private GameObject messagePrefab;
 
@@ -41,11 +42,16 @@ public class FPSUI : MonoBehaviour
         health = playerUI.transform.Find("Health").GetComponent<TMP_Text>();
         ammo = playerUI.transform.Find("Ammo").GetComponent<TMP_Text>();
         healthKits = playerUI.transform.Find("HealthKits").GetComponent<TMP_Text>();
+        grenades = playerUI.transform.Find("Grenades").GetComponent<TMP_Text>();
         messageSpawnPoint = playerUI.transform.Find("MessageSpawn").transform;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerShooting = player.GetComponent<PlayerShooting>();
         playerController = player.GetComponent<PlayerController>();
         playerHealth = player.GetComponent<Health>();
+
+        UnityEngine.UI.Slider sensitivity = pauseMenu.transform.Find("Sensitivity").GetComponent<UnityEngine.UI.Slider>();
+        sensitivity.value = Mathf.Sqrt(GameState.Instance.mouseSensitivity);
+        sensitivity.onValueChanged.AddListener(GameState.Instance.HandleSensitivity);
 
         Transform resume = pauseMenu.transform.Find("Resume");
         UnityEngine.UI.Button resumeButton = resume.GetComponent<UnityEngine.UI.Button>();
@@ -53,12 +59,14 @@ public class FPSUI : MonoBehaviour
 
 
         pauseMenu.transform.Find("Exit").GetComponent<UnityEngine.UI.Button>().onClick.AddListener(ExitToMainMenu);
-        pauseMenu.transform.Find("Volume").GetComponent<UnityEngine.UI.Slider>().onValueChanged.AddListener(HandleVolume);
+        UnityEngine.UI.Slider volumeSlider = pauseMenu.transform.Find("Volume").GetComponent<UnityEngine.UI.Slider>();
+        volumeSlider.onValueChanged.AddListener(GameState.Instance.HandleVolume);
+        volumeSlider.value = Mathf.Sqrt(GameState.Instance.gameVolume);
 
         ChangeMenu(0);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         health.text = "" + Mathf.CeilToInt(playerHealth.GetHealth());
 
@@ -70,7 +78,8 @@ public class FPSUI : MonoBehaviour
             ammo.text = "0/0";
         }
 
-        healthKits.text = "Health Kits: " + playerController.healthPacks;
+        healthKits.text = "Health Kits: " + playerController.healthPacks + " (H)";
+        grenades.text = "Grenades: " + playerShooting.grenades + " (G)";
     }
 
     public void ShowMessage(string message, float duration = 10f)
@@ -137,8 +146,6 @@ public class FPSUI : MonoBehaviour
         ChangeMenu(1);
         Time.timeScale = 0f;
     }
-
-    public void HandleVolume(float volume) => AudioListener.volume = volume * volume;
 
     public void ExitToMainMenu()
     {

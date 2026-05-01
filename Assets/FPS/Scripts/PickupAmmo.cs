@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PickupAmmo : InteractAction
 {
-    [SerializeField, Range(0.1f, 1.0f)] private float reloadWeight = 1f;
+    [SerializeField] private int ammoCount = 300;
     [SerializeField] private AudioClip openSound;
     [SerializeField] private AudioClip noAction;
 
@@ -11,16 +11,18 @@ public class PickupAmmo : InteractAction
     private Transform hinge;
     private AudioSource audioSource;
     private bool looted = false;
+    private GameObject flare;
 
     void Start()
     {
         hinge = transform.Find("Hinge");
         audioSource = GetComponent<AudioSource>();
+        flare = hinge.Find("Top").Find("Flare").gameObject;
     }
 
     public override bool InvokeAction()
     {
-        if (looted) return true;
+        if (ammoCount <= 0) return false;
 
         PlayerShooting player = Object.FindFirstObjectByType<PlayerShooting>();
     
@@ -31,14 +33,43 @@ public class PickupAmmo : InteractAction
 
         GunController gunController = player.gun.GetComponent<GunController>();
 
-        if (!gunController.FullReload(reloadWeight)) return false;
-        looted = true;
-        StartCoroutine(OpenCase());
-        audioSource.PlayOneShot(openSound);
-        return true;
+        int loaded = gunController.ReloadAmmo(ammoCount);
+        ammoCount -= loaded;
+
+        if (loaded == 0) return false;
+
+        if (ammoCount <= 0) { 
+            Destroy(flare);
+            StartCoroutine(CloseCase());
+            return true;
+        }
+
+        if (!looted)
+        {
+            looted = true;
+            StartCoroutine(OpenCase());
+            audioSource.PlayOneShot(openSound);
+        }
+        return false;
     }
 
     private IEnumerator OpenCase()
+    {
+        Quaternion initialRotation = hinge.localRotation;
+        Vector3 rotationOffset = new Vector3(-140, 0, 0);
+        Quaternion targetRotation = Quaternion.Euler(initialRotation.eulerAngles + rotationOffset);
+
+        float t = 0f;
+        float openTime = 0.6f;
+        while (t < openTime)
+        {
+            t += Time.deltaTime;
+            hinge.localRotation = Quaternion.Slerp(initialRotation, targetRotation, t / openTime);
+            yield return null;
+        }
+    }
+
+    private IEnumerator CloseCase()
     {
         Quaternion initialRotation = hinge.localRotation;
         Vector3 rotationOffset = new Vector3(-140, 0, 0);

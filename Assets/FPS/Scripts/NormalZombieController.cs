@@ -34,6 +34,7 @@ public class NormalZombieController : MonoBehaviour
     private Animator animator;
     private AudioSource audioSource;
     private GameObject target;
+    private CapsuleCollider headCollider;
     private Vector3 targetPosition = Vector3.zero;
     private int screamHash, chaseHash, attackHash, deathHash, pausedHash;
     private List<Collider> colliders = new List<Collider>();
@@ -73,12 +74,9 @@ public class NormalZombieController : MonoBehaviour
 
         nextSoundTime = Time.time + UnityEngine.Random.Range(0f, 60f);
         wanderOffset = Random.Range(0, 60);
-    }
 
-    //void Update()
-    //{
-        
-    //}
+        headCollider = GetComponentInChildren<CapsuleCollider>();
+    }
 
     private int updateCounter = 0;
     private void FixedUpdate()
@@ -261,6 +259,7 @@ public class NormalZombieController : MonoBehaviour
         animator.SetTrigger("Die");
         nav.isStopped = true;
         GetComponent<Collider>().enabled = false;
+        headCollider.enabled = false;
         colliders.Clear();
         isDead = true;
         Destroy(gameObject, 60f);

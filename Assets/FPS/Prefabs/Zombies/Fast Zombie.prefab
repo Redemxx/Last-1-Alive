@@ -1061,6 +1061,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 477172005102687986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5498357805100643873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3595016692357404115}
+  - component: {fileID: 5861623398404729688}
+  m_Layer: 7
+  m_Name: Head Collider
+  m_TagString: ZombieHead
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3595016692357404115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5498357805100643873}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.49999985, y: 0.50000024, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -0.0567, y: 0.03, z: 0}
+  m_LocalScale: {x: 1.0184903, y: 1.0184904, z: 1.0184903}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5024097200053725776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &5861623398404729688
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5498357805100643873}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 328
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4224
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.088770345
+  m_Height: 0.2563144
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.01790287, z: 0.0080644665}
 --- !u!1 &5576851236782227774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,6 +1725,7 @@ Transform:
   - {fileID: 1858769763542705094}
   - {fileID: 7982157070692606621}
   - {fileID: 40661568040139390}
+  - {fileID: 3595016692357404115}
   m_Father: {fileID: 5147693534627979710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8438344230775173022
@@ -1841,10 +1897,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.23236948
-  m_Height: 1.7622552
+  m_Radius: 0.17967296
+  m_Height: 1.5478507
   m_Direction: 1
-  m_Center: {x: 0, y: 0.87785894, z: 0}
+  m_Center: {x: 0.000000055209934, y: 0.7706568, z: 0}
 --- !u!195 &2187692419661141775
 NavMeshAgent:
   m_ObjectHideFlags: 0

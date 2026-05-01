@@ -2601,14 +2601,15 @@ MonoBehaviour:
   maxStamina: 250
   staminaRegenRate: 50
   jumpForce: 5
+  safeFallHeight: 6
   groundCheck: {fileID: 1226136194159764595}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 9
-  baseMouseSensitivity: 0.5
   playerCamera: {fileID: 4477850912162503743}
   pickupSound: {fileID: 8300000, guid: 1239586a54051644eaaf623d837ff151, type: 3}
+  fallImpactSound: {fileID: 8300000, guid: 78a779f00a3f9ae41972d8907eac6512, type: 3}
   healthPacks: 0
   hasFlashlight: 0
   isZoomed: 0
@@ -2625,7 +2626,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
   holder: {fileID: 1319554810239627747}
+  secondaryHolder: {fileID: 0}
   gun: {fileID: 0}
+  secondaryGun: {fileID: 0}
+  GrenadePrefab: {fileID: 0}
+  grenades: 1
+  grenadeController: {fileID: 0}
+  holdingGrenade: 0
+  globalVolume: {fileID: 0}
 --- !u!136 &330548623010304307
 CapsuleCollider:
   m_ObjectHideFlags: 0

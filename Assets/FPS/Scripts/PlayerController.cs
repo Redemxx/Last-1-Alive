@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,13 +9,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxStamina = 50 * 5;
     [SerializeField] private float staminaRegenRate = 20;
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float safeFallHeight = 10f;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private float groundDistance = 0.05f;
     [SerializeField] private LayerMask groundMask;
-    
-    [SerializeField] private float baseMouseSensitivity = 400f;
+
     [SerializeField] private Camera playerCamera;
     [SerializeField] private AudioClip pickupSound;
+    [SerializeField] private AudioClip fallImpactSound;
     public int healthPacks;
     public bool hasFlashlight;
 
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private float stamina;
     private float mouseSensitivity;
+    private float baseMouseSensitivity;
+    private float maxAirHeight = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,7 +47,8 @@ public class PlayerController : MonoBehaviour
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
         stamina = maxStamina;
-        mouseSensitivity = baseMouseSensitivity;
+        mouseSensitivity = GameState.Instance.mouseSensitivity;
+        baseMouseSensitivity = mouseSensitivity;
 
         health = GetComponent<Health>();
         health.onDeath += OnDeath;
@@ -51,6 +56,12 @@ public class PlayerController : MonoBehaviour
 
         audioSource = GetComponentInChildren<AudioSource>();
         flashlight = GetComponentInChildren<Light>();
+    }
+
+    public void SetMouseSensitivity(float sensitivity)
+    {
+        baseMouseSensitivity = sensitivity;
+        mouseSensitivity = sensitivity;
     }
 
     public void PlayPickupSound()
@@ -74,7 +85,6 @@ public class PlayerController : MonoBehaviour
         CheckGround();
         MovePlayer();
 
-        Debug.Log(rb.linearVelocity.sqrMagnitude);
         if (rb.linearVelocity.sqrMagnitude <= 0.5f) {
             animator.SetBool("Moving", false);
         } else {
@@ -117,6 +127,23 @@ public class PlayerController : MonoBehaviour
     void CheckGround()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (!isGrounded)
+        {
+            float currentHeight = transform.position.y;
+            if (currentHeight > maxAirHeight) maxAirHeight = currentHeight;
+        }
+        else
+        {
+            if (maxAirHeight - transform.position.y > safeFallHeight)
+            {
+                audioSource.PlayOneShot(fallImpactSound);
+                float fallDamage = 2 * (maxAirHeight - transform.position.y - safeFallHeight) + 10;
+                fallDamage *= (1f + GameState.Instance.GameModifier());
+                health.TakeDamage(gameObject, Mathf.CeilToInt(fallDamage));
+            }
+            maxAirHeight = transform.position.y;
+        }
     }
     
     void OnMovement(InputValue inputValue)

@@ -213,6 +213,7 @@ MonoBehaviour:
   weaponFlash: {fileID: 1682709173782955669, guid: a9b67950593526d4d9729cfa7347044c, type: 3}
   gunSound: {fileID: 8300000, guid: 4ffb553576bb43347b12bd75fc55b2de, type: 3}
   hitSound: {fileID: 8300000, guid: d12cabe0115efe942bacc290e9e94d55, type: 3}
+  headshotSound: {fileID: 8300000, guid: 674698e53aa9d484488cb90b48641d7c, type: 3}
   reloadSound: {fileID: 8300000, guid: 5ecdb1c8e9a2f9249bc010236c62e00d, type: 3}
   magEmpty: {fileID: 8300000, guid: c0ce23390a619d04282d544c1b060e4f, type: 3}
   aimDownSightsFOV: 85

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.TextCore.LowLevel;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class PlayerShooting : MonoBehaviour
     public GameObject secondaryHolder;
     public GunController gun;
     public GunController secondaryGun;
+    public GameObject GrenadePrefab;
+
+    public int grenades = 1;
+    public GrenadeController grenadeController;
+    public bool holdingGrenade = false;
 
     private Health playerHealth;
     private bool isShooting = false;
@@ -44,8 +50,57 @@ public class PlayerShooting : MonoBehaviour
         globalVolume.profile.TryGet(out chromaticAberration);
     }
 
+    public void AddGrenade()
+    {
+        grenades += 1;
+        playerController.PlayPickupSound();
+    }
+
+    public void OnGrenade()
+    {
+        if (Time.timeScale == 0) return;
+        if (grenades <= 0) return;
+        if (holdingGrenade) return;
+
+        if (zoomed) OnZoomEnd();
+
+        holdingGrenade = true;
+
+        if (gun != null)
+        {
+            gun.transform.SetParent(secondaryHolder.transform);
+            gun.transform.localPosition = Vector3.zero;
+            gun.transform.localRotation = Quaternion.identity;
+            gun.enabled = false;
+        }
+
+        GameObject newGrenade = Instantiate(GrenadePrefab, holder.transform.position, holder.transform.rotation);
+        newGrenade.transform.SetParent(holder.transform);
+        grenadeController = newGrenade.GetComponent<GrenadeController>();
+    }
+
+    private void PutGrenadeAway()
+    {
+        if (holdingGrenade)
+        {
+            Destroy(grenadeController.gameObject);
+            holdingGrenade = false;
+        }
+
+        if (gun != null)
+        {
+            gun.transform.SetParent(holder.transform);
+            gun.transform.localPosition = Vector3.zero;
+            gun.transform.localRotation = Quaternion.identity;
+            gun.enabled = true;
+        }
+        return;
+    }
+
     public void PickupGun(GameObject newGun)
     {
+        if (holdingGrenade) PutGrenadeAway();
+
         GunController newGunController = newGun.GetComponent<GunController>();
         if (newGunController == null) {
             return;
@@ -74,6 +129,12 @@ public class PlayerShooting : MonoBehaviour
 
     void OnScroll(InputValue inputValue)
     {
+        if (holdingGrenade)
+        {
+            PutGrenadeAway();
+            return;
+        }
+
         Vector2 delta = inputValue.Get<Vector2>();
         if (Time.timeScale == 0) return;
         if (gun == null) return;
@@ -102,12 +163,28 @@ public class PlayerShooting : MonoBehaviour
     void OnShoot()
     {
         if (Time.timeScale == 0) return;
+
+        if (holdingGrenade)
+        {
+            grenadeController.PullPin();
+            grenades -= 1;
+            return;
+        }
+
         if (gun == null) return;
         isShooting = true;
     }
 
     void OnShootEnd()
     {
+        if (holdingGrenade)
+        {
+            grenadeController.ThrowGrenade();
+            holdingGrenade = false;
+            PutGrenadeAway();
+            return;
+        }
+
         isShooting = false;
     }
 
@@ -124,6 +201,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if (Time.timeScale == 0) return;
         if (gun == null) return;
+        if (holdingGrenade) return;
         zoomed = true;
         playerController.AimDownSights(gun.aimDownSightsFOV / 100);
         playerCam.fieldOfView = gun.aimDownSightsFOV;
@@ -172,7 +250,7 @@ public class PlayerShooting : MonoBehaviour
     void FixedUpdate()
     {
         if (Time.timeScale == 0) return;
-        if (gun != null && isShooting && gun.CheckCooldown()) { 
+        if (!holdingGrenade && gun != null && isShooting && gun.CheckCooldown()) { 
             if (gun.gunState.currentMag <= 0)
             {
                 gun.TryReload();
