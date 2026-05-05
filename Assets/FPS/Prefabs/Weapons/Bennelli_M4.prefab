@@ -112,13 +112,15 @@ MonoBehaviour:
   fireRate: 2
   magPullDistance: 0.3
   magPullDirection: {x: 0, y: 0, z: -1}
-  baseDamage: 9
+  baseDamage: 14
   falloffFactor: 0.02
-  concurrentBullets: 3
-  spreadAngle: 3
+  penetration: 1
+  concurrentBullets: 5
+  spreadAngle: 4
   bullet: {fileID: 600757924290632880, guid: 5a1a274747a523a4fbdb0ea30888f755, type: 3}
   recoilDistance: 0.24
   recoilReturnSpeed: 0.3
+  slowsEnemy: 0
   droppedVariant: {fileID: 1236257789494122, guid: 9365fb8de6b100c43bdb395d88753239, type: 3}
   weaponFlash: {fileID: 1682709173782955669, guid: a9b67950593526d4d9729cfa7347044c, type: 3}
   gunSound: {fileID: 8300000, guid: 94de1e2d4df27f54cabdc9fba9cbe37b, type: 3}

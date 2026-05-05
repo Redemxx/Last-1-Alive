@@ -206,6 +206,9 @@ MonoBehaviour:
   magPullDirection: {x: 0, y: -1, z: 0}
   baseDamage: 5
   falloffFactor: 0.0008
+  penetration: 2
+  concurrentBullets: 1
+  spreadAngle: 0
   bullet: {fileID: 600757924290632880, guid: 5a1a274747a523a4fbdb0ea30888f755, type: 3}
   recoilDistance: 0.08
   recoilReturnSpeed: 0.1944445

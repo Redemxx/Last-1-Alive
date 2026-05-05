@@ -28,7 +28,9 @@ public class PlayerShooting : MonoBehaviour
     private bool zoomed = false;
 
     public Volume globalVolume;
+    public Volume hurtVolume;
     private Vignette vignette;
+    private Vignette hurtVignette;
     private ChromaticAberration chromaticAberration;
 
     void Start()
@@ -38,6 +40,7 @@ public class PlayerShooting : MonoBehaviour
         playerCam = GetComponentInChildren<Camera>();
         baseFOV = playerCam.fieldOfView;
         playerHealth = GetComponent<Health>();
+        playerHealth.onDamaged += OnPlayerHurt;
 
         if (holder.transform.childCount > 0)
         {
@@ -109,7 +112,7 @@ public class PlayerShooting : MonoBehaviour
         if (gun != null)
         {
             if (secondaryGun != null) { 
-                OnDrop();
+                DropCurrentGun();
             }
             else
             {
@@ -140,20 +143,49 @@ public class PlayerShooting : MonoBehaviour
         if (gun == null) return;
         if (delta.magnitude == 0) return;
 
-        if (secondaryGun != null) {
+        SwitchGun();
+        //if (secondaryGun != null) {
+        //    GunController temp = gun;
+        //    gun = secondaryGun;
+        //    secondaryGun = temp;
+            
+        //    gun.transform.SetParent(holder.transform);
+        //    gun.transform.localPosition = Vector3.zero;
+        //    gun.transform.localRotation = Quaternion.identity;
+        //    gun.enabled = true;
+
+        //    if (temp != null) {
+        //        secondaryGun.transform.SetParent(secondaryHolder.transform);
+        //        secondaryGun.transform.localPosition = Vector3.zero;
+        //        secondaryGun.transform.localRotation = Quaternion.identity;
+        //        secondaryGun.enabled = false;
+        //    }
+        //    playerController.PlayPickupSound();
+
+        //    if (zoomed) OnZoom();
+        //}
+    }
+
+    private void SwitchGun()
+    {
+        if (secondaryGun != null)
+        {
             GunController temp = gun;
             gun = secondaryGun;
             secondaryGun = temp;
-            
+
             gun.transform.SetParent(holder.transform);
             gun.transform.localPosition = Vector3.zero;
             gun.transform.localRotation = Quaternion.identity;
             gun.enabled = true;
 
-            secondaryGun.transform.SetParent(secondaryHolder.transform);
-            secondaryGun.transform.localPosition = Vector3.zero;
-            secondaryGun.transform.localRotation = Quaternion.identity;
-            secondaryGun.enabled = false;
+            if (temp != null)
+            {
+                secondaryGun.transform.SetParent(secondaryHolder.transform);
+                secondaryGun.transform.localPosition = Vector3.zero;
+                secondaryGun.transform.localRotation = Quaternion.identity;
+                secondaryGun.enabled = false;
+            }
             playerController.PlayPickupSound();
 
             if (zoomed) OnZoom();
@@ -230,6 +262,33 @@ public class PlayerShooting : MonoBehaviour
         if (targetIntensity == 0) vignette.active = false;
     }
 
+    public void OnPlayerHurt(GameObject soruce)
+    {
+        StartCoroutine(HurtEffect(0.6f, 0.4f));
+    }
+
+    public IEnumerator HurtEffect(float targetIntensity, float duration)
+    {
+        float halfReload = duration / 2f;
+        float t = 0f;
+
+        while (t < halfReload)
+        {
+            t += Time.deltaTime;
+            hurtVignette.intensity.value = Mathf.Lerp(0f, targetIntensity, t / halfReload);
+            yield return null;
+        }
+
+        t = 0f;
+
+        while (t < halfReload)
+        {
+            t += Time.deltaTime;
+            hurtVignette.intensity.value = Mathf.Lerp(targetIntensity, 0f, t / halfReload);
+            yield return null;
+        }
+    }
+
     void OnZoomEnd()
     {
         playerController.AimDownSights();
@@ -239,6 +298,20 @@ public class PlayerShooting : MonoBehaviour
     }
 
     public void OnDrop()
+    {
+        if (Time.timeScale == 0) return;
+        if (gun == null) return;
+
+        gun.Drop();
+        gun = null;
+
+        if (secondaryGun != null)
+        {
+            SwitchGun();
+        }
+    }
+
+    public void DropCurrentGun()
     {
         if (Time.timeScale == 0) return;
         if (gun == null) return;

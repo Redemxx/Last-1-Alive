@@ -42,6 +42,7 @@ public class NormalZombieController : MonoBehaviour
     private float nextSoundTime = 0f;
     private bool isDead = false;
     private int wanderOffset;
+    private float speed;
 
     void Start()
     {
@@ -76,6 +77,8 @@ public class NormalZombieController : MonoBehaviour
         wanderOffset = Random.Range(0, 60);
 
         headCollider = GetComponentInChildren<CapsuleCollider>();
+
+        speed = chasingSpeed;
     }
 
     private int updateCounter = 0;
@@ -109,6 +112,15 @@ public class NormalZombieController : MonoBehaviour
             Wander();
         }
         updateCounter++;
+    }
+
+    public void SlowDown()
+    {
+        if (isDead) return;
+
+        speed *= 0.84f;
+        nav.speed = speed;
+        animator.SetFloat("SpeedFactor", speed / chasingSpeed);
     }
 
     private void Wander()
@@ -209,8 +221,9 @@ public class NormalZombieController : MonoBehaviour
 
     private void StartChase(GameObject obj)
     {
+        if (isDead) return;
         nav.isStopped = false;
-        nav.speed = chasingSpeed;
+        nav.speed = speed;
         target = obj;
         animator.SetBool("Moving", true);
     }
@@ -267,6 +280,7 @@ public class NormalZombieController : MonoBehaviour
 
     public void OnAlerted(GameObject source)
     {
+        if (isDead) return;
         if (target != null) return;
         health.onDamaged -= OnAlerted;
         AlertZombies(source);

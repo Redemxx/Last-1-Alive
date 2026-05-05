@@ -1103,7 +1103,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 328
+    m_Bits: 264
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 4224

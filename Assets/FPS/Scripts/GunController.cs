@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 using UnityEngineInternal;
+using UnityEngine.Rendering;
 
 public class GunController : MonoBehaviour
 {
@@ -12,11 +13,13 @@ public class GunController : MonoBehaviour
     [SerializeField] private Vector3 magPullDirection = new Vector3(0, -1, 0);
     [SerializeField] private int baseDamage = 1;
     [SerializeField] private float falloffFactor = 0f;
+    [SerializeField] private int penetration = 1;
     [SerializeField] private int concurrentBullets = 1;
     [SerializeField] private float spreadAngle = 0f;
     [SerializeField] private GameObject bullet;
     [SerializeField] private float recoilDistance = 0.1f;
     [SerializeField] private float recoilReturnSpeed = 0.12f;
+    [SerializeField] private bool slowsEnemy = false;
     [SerializeField] private GameObject droppedVariant;
     [SerializeField] private GameObject weaponFlash;
     [SerializeField] private AudioClip gunSound;
@@ -110,29 +113,72 @@ public class GunController : MonoBehaviour
 
             Vector3 spreadDirection = spreadRotation * playerCam.transform.forward;
             Ray ray = new Ray(playerCam.transform.position, spreadDirection);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, hitMask))
+
+            RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, hitMask);
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+            int penetrated = Mathf.Min(penetration, hits.Length);
+            int sucessfulHits = 0;
+            for (int h = 0; h < penetrated; h++)
             {
+                RaycastHit hit = hits[h];
                 bool isHeadshot = hit.collider.CompareTag("ZombieHead");
 
                 Health target;
+                NormalZombieController zombie;
                 if (isHeadshot)
                 {
                     target = hit.collider.GetComponentInParent<Health>();
+                    zombie = hit.collider.GetComponentInParent<NormalZombieController>();
                 }
                 else
                 {
                     target = hit.collider.GetComponent<Health>();
+                    zombie = hit.collider.GetComponent<NormalZombieController>();
                 }
 
                 if (target != null)
                 {
                     float damageDelt = baseDamage - (falloffFactor * hit.distance * hit.distance);
                     if (isHeadshot) damageDelt *= 2;
-                    if (isHeadshot) Debug.Log("Headshot");
+                    damageDelt *= Mathf.Max(0, 1 - (sucessfulHits / ((float)penetration * 2)) );
                     target.TakeDamage(gameObject, damageDelt);
                     internalSound.PlayOneShot(isHeadshot ? headshotSound : hitSound);
+                    sucessfulHits++;
+
+                    if (slowsEnemy && zombie != null)
+                        zombie.SlowDown();
+                }
+                else
+                {
+                    penetrated = Mathf.Min(hits.Length, penetrated + 1);
                 }
             }
+            //if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, hitMask))
+            //{
+            //    bool isHeadshot = hit.collider.CompareTag("ZombieHead");
+
+            //    Health target;
+            //    if (isHeadshot)
+            //    {
+            //        target = hit.collider.GetComponentInParent<Health>();
+            //    }
+            //    else
+            //    {
+            //        target = hit.collider.GetComponent<Health>();
+            //    }
+
+            //    if (target != null)
+            //    {
+            //        float damageDelt = baseDamage - (falloffFactor * hit.distance * hit.distance);
+            //        if (isHeadshot) damageDelt *= 2;
+            //        if (isHeadshot) Debug.Log("Headshot");
+            //        target.TakeDamage(gameObject, damageDelt);
+            //        internalSound.PlayOneShot(isHeadshot ? headshotSound : hitSound);
+            //    }
+            //}
+
+
         }
 
         StopCoroutine(nameof(Recoil));

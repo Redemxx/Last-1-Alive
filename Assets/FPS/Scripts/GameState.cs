@@ -38,7 +38,6 @@ public class GameState : MonoBehaviour
 
     public void HandleVolume(float volume)
     {
-        Debug.Log("Volume: " + volume);
         AudioListener.volume = volume * volume;
         gameVolume = volume * volume;
     }
