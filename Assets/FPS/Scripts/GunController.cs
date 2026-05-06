@@ -1,8 +1,9 @@
-using UnityEngine;
-using System.Collections;
 using System;
-using UnityEngineInternal;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
+using UnityEngineInternal;
 
 public class GunController : MonoBehaviour
 {
@@ -40,7 +41,8 @@ public class GunController : MonoBehaviour
     private Quaternion initialRotation;
     private Vector3 initialPosition;
     private Vector3 initialMagPosition;
-    private LayerMask hitMask;
+    public LayerMask hitMask;
+    public LayerMask damageMask;
 
 
     void Start()
@@ -56,7 +58,7 @@ public class GunController : MonoBehaviour
         mag = transform.Find("Mag").gameObject;
         initialMagPosition = mag.transform.localPosition;
 
-        hitMask = LayerMask.GetMask("Zombies", "Breakables");
+        //hitMask = LayerMask.GetMask("Zombies", "Breakables");
     }
 
     public bool CheckCooldown()
@@ -122,6 +124,11 @@ public class GunController : MonoBehaviour
             for (int h = 0; h < penetrated; h++)
             {
                 RaycastHit hit = hits[h];
+                bool isInMask = (damageMask.value & (1 << hit.collider.gameObject.layer)) != 0;
+                if (!isInMask)
+                {
+                    break;
+                }
                 bool isHeadshot = hit.collider.CompareTag("ZombieHead");
 
                 Health target;

@@ -22,7 +22,7 @@ public class PlayerShooting : MonoBehaviour
     private bool isShooting = false;
     private PlayerInput playerInput;
     public PlayerController playerController { get; private set; }
-    private Camera playerCam;
+    public Camera playerCam;
     private float baseFOV;
     private List<Collider> zombies = new List<Collider>();
     private bool zoomed = false;
@@ -51,6 +51,7 @@ public class PlayerShooting : MonoBehaviour
 
         globalVolume.profile.TryGet(out vignette);
         globalVolume.profile.TryGet(out chromaticAberration);
+        hurtVolume.profile.TryGet(out hurtVignette);
     }
 
     public void AddGrenade()
@@ -264,11 +265,13 @@ public class PlayerShooting : MonoBehaviour
 
     public void OnPlayerHurt(GameObject soruce)
     {
-        StartCoroutine(HurtEffect(0.6f, 0.4f));
+        Debug.Log("Player hurt!");
+        StartCoroutine(HurtEffect(0.8f, 0.2f));
     }
 
     public IEnumerator HurtEffect(float targetIntensity, float duration)
     {
+        Debug.Log("Hurt effect");
         float halfReload = duration / 2f;
         float t = 0f;
 
@@ -287,6 +290,7 @@ public class PlayerShooting : MonoBehaviour
             hurtVignette.intensity.value = Mathf.Lerp(targetIntensity, 0f, t / halfReload);
             yield return null;
         }
+        yield break;
     }
 
     void OnZoomEnd()

@@ -130,6 +130,12 @@ MonoBehaviour:
   magEmpty: {fileID: 8300000, guid: c0ce23390a619d04282d544c1b060e4f, type: 3}
   aimDownSightsFOV: 70
   gunState: {fileID: 0}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 1737
+  damageMask:
+    serializedVersion: 2
+    m_Bits: 1152
 --- !u!114 &-348223501143166655
 MonoBehaviour:
   m_ObjectHideFlags: 0

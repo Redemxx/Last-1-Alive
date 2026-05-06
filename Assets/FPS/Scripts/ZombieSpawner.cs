@@ -53,8 +53,7 @@ public class ZombieSpawner : MonoBehaviour
 
         if (!ignoreRay && CheckLineOfSight(spawnPointIndex)) return;
 
-        Vector3 randomness = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
-        GameObject zombie = Instantiate(zombies[zombieIndex], spawnPoints[spawnPointIndex].position + randomness, Quaternion.identity);
+        GameObject zombie = Instantiate(zombies[zombieIndex], spawnPoints[spawnPointIndex].position, Quaternion.identity);
         StartCoroutine(zombie.GetComponent<NormalZombieController>().Engage(players[Random.Range(0, players.Count)]));
         zombiesToSpawn -= 1;
         spawnCooldown = Time.time + Random.Range(spawnCooldownMin, spawnCooldownMax);

@@ -95,13 +95,13 @@ public class NormalZombieController : MonoBehaviour
 
         if (target != null)
         {
+            int currentStateHash = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
             float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-            if (distanceToTarget <= attackDistance && nav.velocity.magnitude <= 0.1 && Time.time >= nextAttackTime)
+            if (currentStateHash != attackHash && distanceToTarget <= attackDistance && nav.velocity.magnitude <= 0.1 && Time.time >= nextAttackTime)
             {
                 Attack();
             }
 
-            int currentStateHash = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
             if (currentStateHash == chaseHash || (currentStateHash == pausedHash && Time.time > nextAttackTime))
             {
                 nav.SetDestination(target.transform.position);

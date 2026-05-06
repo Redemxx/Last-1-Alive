@@ -238,9 +238,13 @@ MonoBehaviour:
   magPullDirection: {x: 0, y: -1, z: 0.4}
   baseDamage: 6
   falloffFactor: 0.002
+  penetration: 1
+  concurrentBullets: 1
+  spreadAngle: 0
   bullet: {fileID: 600757924290632880, guid: 5a1a274747a523a4fbdb0ea30888f755, type: 3}
   recoilDistance: 0.1
   recoilReturnSpeed: 0.12
+  slowsEnemy: 0
   droppedVariant: {fileID: 1694449805434718, guid: 3e9c283f16a23444783a2e25a9d40f52, type: 3}
   weaponFlash: {fileID: 1682709173782955669, guid: a9b67950593526d4d9729cfa7347044c, type: 3}
   gunSound: {fileID: 8300000, guid: 510ff132ec190524fab1cdcc626df8c9, type: 3}
@@ -250,6 +254,12 @@ MonoBehaviour:
   magEmpty: {fileID: 8300000, guid: c0ce23390a619d04282d544c1b060e4f, type: 3}
   aimDownSightsFOV: 85
   gunState: {fileID: 0}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 1737
+  damageMask:
+    serializedVersion: 2
+    m_Bits: 1152
 --- !u!114 &-5101720692762261334
 MonoBehaviour:
   m_ObjectHideFlags: 0

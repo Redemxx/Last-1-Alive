@@ -191,7 +191,7 @@ CapsuleCollider:
     m_Bits: 264
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 4224
+    m_Bits: 4288
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
