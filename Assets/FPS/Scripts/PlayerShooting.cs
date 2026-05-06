@@ -14,7 +14,7 @@ public class PlayerShooting : MonoBehaviour
     public GunController secondaryGun;
     public GameObject GrenadePrefab;
 
-    public int grenades = 1;
+    public int grenades = 0;
     public GrenadeController grenadeController;
     public bool holdingGrenade = false;
 
