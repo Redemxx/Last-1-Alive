@@ -237,15 +237,31 @@ public class PlayerShooting : MonoBehaviour
         if (holdingGrenade) return;
         zoomed = true;
         playerController.AimDownSights(gun.aimDownSightsFOV / 100);
-        playerCam.fieldOfView = gun.aimDownSightsFOV;
+        //playerCam.fieldOfView = gun.aimDownSightsFOV;
+        StartCoroutine(HandleZoom(gun.aimDownSightsFOV, 0.2f));
 
         if (gun.aimDownSightsFOV < 30)
         {
-            StartCoroutine(HandleVignette(0.8f, 0.18f));
+            StartCoroutine(HandleScope(0.8f, 0.18f));
         }
     }
 
-    public IEnumerator HandleVignette(float targetIntensity, float duration)
+    public IEnumerator HandleZoom(float targetFOV, float duration)
+    {
+        float initialFOV = playerCam.fieldOfView;
+        float t = 0f;
+        bool wasZoomed = zoomed;
+
+        while (t < duration)
+        {
+            if (wasZoomed != zoomed) yield break;
+            t += Time.deltaTime;
+            playerCam.fieldOfView = Mathf.Lerp(initialFOV, targetFOV, t / duration);
+            yield return null;
+        }
+    }
+
+    public IEnumerator HandleScope(float targetIntensity, float duration)
     {
         if (targetIntensity > 0) vignette.active = true;
         bool wasZoomed = zoomed;
@@ -257,6 +273,7 @@ public class PlayerShooting : MonoBehaviour
             if (wasZoomed != zoomed) yield break;
             t += Time.deltaTime;
             vignette.intensity.value = Mathf.Lerp(initialIntensity, targetIntensity, t / duration);
+
             yield return null;
         }
 
@@ -265,13 +282,12 @@ public class PlayerShooting : MonoBehaviour
 
     public void OnPlayerHurt(GameObject soruce)
     {
-        Debug.Log("Player hurt!");
         StartCoroutine(HurtEffect(0.8f, 0.2f));
     }
 
     public IEnumerator HurtEffect(float targetIntensity, float duration)
     {
-        Debug.Log("Hurt effect");
+        hurtVignette.active = true;
         float halfReload = duration / 2f;
         float t = 0f;
 
@@ -290,6 +306,7 @@ public class PlayerShooting : MonoBehaviour
             hurtVignette.intensity.value = Mathf.Lerp(targetIntensity, 0f, t / halfReload);
             yield return null;
         }
+        hurtVignette.active = false;
         yield break;
     }
 
@@ -298,7 +315,7 @@ public class PlayerShooting : MonoBehaviour
         playerController.AimDownSights();
         playerCam.fieldOfView = baseFOV;
         zoomed = false;
-        StartCoroutine(HandleVignette(0f, 0.18f));
+        StartCoroutine(HandleScope(0f, 0.18f));
     }
 
     public void OnDrop()
