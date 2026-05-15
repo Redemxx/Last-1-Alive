@@ -118,7 +118,7 @@ public class NormalZombieController : MonoBehaviour
     {
         if (isDead) return;
 
-        speed *= 0.84f;
+        speed *= 0.92f;
         nav.speed = speed;
         animator.SetFloat("SpeedFactor", speed / chasingSpeed);
     }
