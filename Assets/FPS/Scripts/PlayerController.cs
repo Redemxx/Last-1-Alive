@@ -38,6 +38,10 @@ public class PlayerController : MonoBehaviour
     private float baseMouseSensitivity;
     private float maxAirHeight = 0;
 
+    private Transform lefthandRest;
+    private Transform righthandRest;
+    [SerializeField]  private Transform camRoot;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -56,6 +60,17 @@ public class PlayerController : MonoBehaviour
 
         audioSource = GetComponentInChildren<AudioSource>();
         flashlight = GetComponentInChildren<Light>();
+
+        lefthandRest = transform.Find("LeftHandRest");
+        righthandRest = transform.Find("RightHandRest");
+    }
+
+    private void OnAnimatorIK(int layerIndex)
+    {
+        animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+        animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+        animator.SetIKPosition(AvatarIKGoal.LeftHand, lefthandRest.position);
+        animator.SetIKPosition(AvatarIKGoal.RightHand, righthandRest.position);
     }
 
     public void SetMouseSensitivity(float sensitivity)
@@ -96,6 +111,8 @@ public class PlayerController : MonoBehaviour
             stamina += staminaRegenRate * Time.deltaTime;
             if (stamina > maxStamina) stamina = maxStamina;
         }
+
+        playerCamera.transform.position = camRoot.position;
     }
 
     void OnJump()
