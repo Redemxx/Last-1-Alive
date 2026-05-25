@@ -4222,10 +4222,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 705037337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.32649457, y: 0.0073342626}
-  m_AnchorMax: {x: 0.6545495, y: 0.984}
-  m_AnchoredPosition: {x: -1418.626, y: 272.42105}
-  m_SizeDelta: {x: 777.9503, y: -298.19934}
+  m_AnchorMin: {x: 0.16000001, y: 0.022735879}
+  m_AnchorMax: {x: 0.16000001, y: 0.9760001}
+  m_AnchoredPosition: {x: 284, y: 0}
+  m_SizeDelta: {x: 1370.9503, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &132135641
 MonoBehaviour:
@@ -4247,31 +4247,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Prefabs from Unity Asset Store:
-
-    Ammo Box - Beatheart Creative Studio
-
-    Crates
-    And Barrels Pack Volume 1 - Helix Studio
-
-    First-Aid Set - GeeKay 3D
-
-    Flooded
-    Grounds - Sandro T
-
-    Free Shirtless Zombie - Studio New Punch
-
-    Low Poly
-    Weapons VOL 1 - Simon Mercuzot
-
-    Road Flares - Mohammed Qamar
-
-    Street
-    Lamps - SpaceZeta
-
-    Survivalist Character - Slayver
-
-    Zombie - Pxltiger'
+  m_text: "Walkthroughs:\nMain Menus (Canvas) - Oliver Age 24\nFPS Controller - Unity
+    Unlocked \n\nFont: Rock Salt - Google Fonts\n\nPrefabs from Unity Asset Store:\nAmmo
+    Box - Beatheart Creative Studio\nCrates And Barrels Pack Volume 1 - Helix Studio\nFirst-Aid
+    Set - GeeKay 3D\nFlooded Grounds - Sandro T\nFree Shirtless Zombie - Studio New
+    Punch\nLow Poly Weapons VOL 1 - Simon Mercuzot\nRoad Flares - Mohammed Qamar\nStreet
+    Lamps - SpaceZeta\nSurvivalist Character - Slayver\nZombie - Pxltiger\n\nOpenGameArt.org
+    Sounds:\n\tThwack Sounds\n\nPixabay Sounds:\n\tAK-47 Firing\n\tGun Reload 2\n\tShotgun
+    Shooting Things\n\tScream of the Zombie King\n\tZombie Growl 3\n\tgun_handling\n\tM4
+    Assalt rifle Long Burst\n\tMarrett M107 Sound Effect\n\tM249 Sound Effects\n\tPistol
+    Cock\n\t9mm pistol shot\n\t072778 Fully Automatic Pistol (UZI)\n\tWooden Trunk
+    Latch 1\n\tROAD FLARE\n\tZombie Screech Sound Effect\n\tZombie SFX\n\tZombie
+    Choking\n\tZombie Sound\n\tZombie Moan\n\tZombie moans\n\tGlass Breaking\n\tItem
+    Pickup\n\tWood Smash 5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4298,11 +4286,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.45
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 28
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -4317,8 +4305,8 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
+  m_overflowMode: 6
+  m_linkedTextComponent: {fileID: 1299728476}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
   m_ActiveFontFeatures: 6e72656b
@@ -4329,7 +4317,7 @@ MonoBehaviour:
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
-  m_horizontalMapping: 0
+  m_horizontalMapping: 2
   m_verticalMapping: 0
   m_uvLineOffset: 0
   m_geometrySortingOrder: 0
@@ -4337,7 +4325,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 2088.6436, y: 126.37024, z: -1416.5995, w: -534.6623}
+  m_margin: {x: -9.370544, y: -98.03083, z: 693.6731, w: -93.88602}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -8789,10 +8777,10 @@ RectTransform:
   - {fileID: 430843057}
   m_Father: {fileID: 1297676089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.14434949, y: 0.06486726}
-  m_AnchorMax: {x: 0.86300004, y: 0.142}
-  m_AnchoredPosition: {x: -1.5000305, y: 0.7001953}
-  m_SizeDelta: {x: -15, y: -25}
+  m_AnchorMin: {x: 0.15300001, y: 0.10465944}
+  m_AnchorMax: {x: 0.85, y: 0.10465944}
+  m_AnchoredPosition: {x: -0.000030517578, y: -0.2996521}
+  m_SizeDelta: {x: 2, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &260126219
 MonoBehaviour:
@@ -20909,148 +20897,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48a907058000acc4da8ac9293b565679, type: 3}
---- !u!1 &624140924
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 624140925}
-  - component: {fileID: 624140927}
-  - component: {fileID: 624140926}
-  m_Layer: 5
-  m_Name: Walkthroughs
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &624140925
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624140924}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 0.81046855, y: 0.81046855, z: 0.81046855}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 705037337}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.008648352, y: 0.79200006}
-  m_AnchorMax: {x: 0.28045055, y: 0.984}
-  m_AnchoredPosition: {x: 47.9209, y: -58.5}
-  m_SizeDelta: {x: 224.75427, y: 172.77084}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &624140926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624140924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: 'Walkthroughs:
-
-    Main Menus (Canvas) - Oliver Age 24
-
-    FPS Controller
-    - Unity Unlocked '
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 37.65
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_characterHorizontalScale: 1
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_EmojiFallbackSupport: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 122.54144, w: 150.47282}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &624140927
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624140924}
-  m_CullTransparentMesh: 1
 --- !u!4 &624289382 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 490552, guid: 48a907058000acc4da8ac9293b565679, type: 3}
@@ -23526,16 +23372,15 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 624140925}
-  - {fileID: 1044587138}
   - {fileID: 132135640}
   - {fileID: 1299728475}
+  - {fileID: 1013875989}
   m_Father: {fileID: 197578017}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.019229174, y: 0.046806443}
-  m_AnchorMax: {x: 0.9784792, y: 0.822396}
-  m_AnchoredPosition: {x: 2, y: 4.500122}
-  m_SizeDelta: {x: -22, y: -13}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.5, y: -40.49994}
+  m_SizeDelta: {x: -101, y: -199.00012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &705037338
 MonoBehaviour:
@@ -24706,10 +24551,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 197578017}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 116, y: -36}
-  m_SizeDelta: {x: 200, y: 51}
+  m_AnchorMin: {x: 0, y: 0.855}
+  m_AnchorMax: {x: 0.22500001, y: 1}
+  m_AnchoredPosition: {x: -100.5, y: 39.5}
+  m_SizeDelta: {x: -233, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &741782799
 MonoBehaviour:
@@ -24758,12 +24603,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 68.75
+  m_fontSize: 66
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 5
+  m_fontSizeMax: 66
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -32740,6 +32585,155 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 490552, guid: 48a907058000acc4da8ac9293b565679, type: 3}
   m_PrefabInstance: {fileID: 2028703070}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1013875988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1013875989}
+  - component: {fileID: 1013875991}
+  - component: {fileID: 1013875990}
+  m_Layer: 5
+  m_Name: Sounds (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1013875989
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013875988}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 0.81046855, y: 0.81046855, z: 0.81046855}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 705037337}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.6614503, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 196.5, y: 0}
+  m_SizeDelta: {x: 44.7511, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1013875990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013875988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "Walkthroughs:\nMain Menus (Canvas) - Oliver Age 24\nFPS Controller - Unity
+    Unlocked \n\nFont: Rock Salt - Google Fonts\n\nPrefabs from Unity Asset Store:\nAmmo
+    Box - Beatheart Creative Studio\nCrates And Barrels Pack Volume 1 - Helix Studio\nFirst-Aid
+    Set - GeeKay 3D\nFlooded Grounds - Sandro T\nFree Shirtless Zombie - Studio New
+    Punch\nLow Poly Weapons VOL 1 - Simon Mercuzot\nRoad Flares - Mohammed Qamar\nStreet
+    Lamps - SpaceZeta\nSurvivalist Character - Slayver\nZombie - Pxltiger\n\nOpenGameArt.org
+    Sounds:\n\tThwack Sounds\n\nPixabay Sounds:\n\tAK-47 Firing\n\tGun Reload 2\n\tShotgun
+    Shooting Things\n\tScream of the Zombie King\n\tZombie Growl 3\n\tgun_handling\n\tM4
+    Assalt rifle Long Burst\n\tMarrett M107 Sound Effect\n\tM249 Sound Effects\n\tPistol
+    Cock\n\t9mm pistol shot\n\t072778 Fully Automatic Pistol (UZI)\n\tWooden Trunk
+    Latch 1\n\tROAD FLARE\n\tZombie Screech Sound Effect\n\tZombie SFX\n\tZombie
+    Choking\n\tZombie Sound\n\tZombie Moan\n\tZombie moans\n\tGlass Breaking\n\tItem
+    Pickup\n\tWood Smash 5"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 1
+  m_fontSizeMax: 36
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 1299728476}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 2
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -266.56345, y: -81.114395, z: 219.91673, w: -57.079956}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1013875991
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013875988}
+  m_CullTransparentMesh: 1
 --- !u!4 &1016605581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 451280, guid: 85bb8601e5e500b4d944c4ac64c546c2, type: 3}
@@ -33712,143 +33706,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48a907058000acc4da8ac9293b565679, type: 3}
---- !u!1 &1044587137
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1044587138}
-  - component: {fileID: 1044587140}
-  - component: {fileID: 1044587139}
-  m_Layer: 5
-  m_Name: Font
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1044587138
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044587137}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 0.81046855, y: 0.81046855, z: 0.81046855}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 705037337}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.008648352, y: 0.6972388}
-  m_AnchorMax: {x: 0.2975495, y: 0.7862388}
-  m_AnchoredPosition: {x: -5.9542236, y: -51}
-  m_SizeDelta: {x: 128.44604, y: 126.6301}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1044587139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044587137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: 'Font: Rock Salt - Google Fonts'
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 47.2
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_characterHorizontalScale: 1
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_EmojiFallbackSupport: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 3.277069, w: 122.164085}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1044587140
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044587137}
-  m_CullTransparentMesh: 1
 --- !u!1001 &1045336089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43655,10 +43512,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 705037337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.61800003, y: 0.027559927}
-  m_AnchorMax: {x: 0.99445057, y: 0.9777135}
-  m_AnchoredPosition: {x: -310.80844, y: 94.96492}
-  m_SizeDelta: {x: -26.248901, y: -45.119263}
+  m_AnchorMin: {x: 0.33100003, y: 0}
+  m_AnchorMax: {x: 0.6742525, y: 1}
+  m_AnchoredPosition: {x: 241.19153, y: 0}
+  m_SizeDelta: {x: 33.7511, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1299728476
 MonoBehaviour:
@@ -43680,13 +43537,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "OpenGameArt.org Sounds:\n\tThwack Sounds\n\nPixabay Sounds:\n\tAK-47 Firing\n\tGun
-    Reload 2\n\tShotgun Shooting Things\n\tScream of the Zombie King\n\tZombie Growl
-    3\n\tgun_handling\n\tM4 Assalt rifle Long Burst\n\tMarrett M107 Sound Effect\n\tM249
-    Sound Effects\n\tPistol Cock\n\t9mm pistol shot\n\t072778 Fully Automatic Pistol
-    (UZI)\n\tWooden Trunk Latch 1\n\tROAD FLARE\n\tZombie Screech Sound Effect\n\tZombie
-    SFX\n\tZombie Choking\n\tZombie Sound\n\tZombie Moan\n\tZombie moans\n\tGlass
-    Breaking\n\tItem Pickup\n\tWood Smash 5"
+  m_text: "Walkthroughs:\nMain Menus (Canvas) - Oliver Age 24\nFPS Controller - Unity
+    Unlocked \n\nFont: Rock Salt - Google Fonts\n\nPrefabs from Unity Asset Store:\nAmmo
+    Box - Beatheart Creative Studio\nCrates And Barrels Pack Volume 1 - Helix Studio\nFirst-Aid
+    Set - GeeKay 3D\nFlooded Grounds - Sandro T\nFree Shirtless Zombie - Studio New
+    Punch\nLow Poly Weapons VOL 1 - Simon Mercuzot\nRoad Flares - Mohammed Qamar\nStreet
+    Lamps - SpaceZeta\nSurvivalist Character - Slayver\nZombie - Pxltiger\n\nOpenGameArt.org
+    Sounds:\n\tThwack Sounds\n\nPixabay Sounds:\n\tAK-47 Firing\n\tGun Reload 2\n\tShotgun
+    Shooting Things\n\tScream of the Zombie King\n\tZombie Growl 3\n\tgun_handling\n\tM4
+    Assalt rifle Long Burst\n\tMarrett M107 Sound Effect\n\tM249 Sound Effects\n\tPistol
+    Cock\n\t9mm pistol shot\n\t072778 Fully Automatic Pistol (UZI)\n\tWooden Trunk
+    Latch 1\n\tROAD FLARE\n\tZombie Screech Sound Effect\n\tZombie SFX\n\tZombie
+    Choking\n\tZombie Sound\n\tZombie Moan\n\tZombie moans\n\tGlass Breaking\n\tItem
+    Pickup\n\tWood Smash 5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -43713,14 +43576,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.95
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 28
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -43732,9 +43595,9 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
+  m_overflowMode: 6
+  m_linkedTextComponent: {fileID: 1013875990}
+  parentLinkedComponent: {fileID: 132135641}
   m_enableKerning: 0
   m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
@@ -43744,7 +43607,7 @@ MonoBehaviour:
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
-  m_horizontalMapping: 0
+  m_horizontalMapping: 2
   m_verticalMapping: 0
   m_uvLineOffset: 0
   m_geometrySortingOrder: 0
@@ -43752,7 +43615,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 321.95535, y: 35.175095, z: -477.59296, w: -206.92572}
+  m_margin: {x: -353.09073, y: -74.83571, z: 238.16502, w: -38.02533}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -50722,10 +50585,10 @@ RectTransform:
   - {fileID: 1998476621}
   m_Father: {fileID: 1297676089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.27519992, y: 0.5}
-  m_AnchorMax: {x: 0.7313, y: 0.6451816}
-  m_AnchoredPosition: {x: -3.5, y: 4}
-  m_SizeDelta: {x: -49, y: -37}
+  m_AnchorMin: {x: 0.5, y: 0.57511353}
+  m_AnchorMax: {x: 0.5, y: 0.57511353}
+  m_AnchoredPosition: {x: -1.5, y: 2.5}
+  m_SizeDelta: {x: 303, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1523510984
 MonoBehaviour:
@@ -55527,10 +55390,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1297676089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.15300001, y: 0.3645782}
-  m_AnchorMax: {x: 0.8801903, y: 0.5}
-  m_AnchoredPosition: {x: -9.500061, y: 10.5}
-  m_SizeDelta: {x: -219, y: -29}
+  m_AnchorMin: {x: 0.15300001, y: 0.35365948}
+  m_AnchorMax: {x: 0.85, y: 0.35365948}
+  m_AnchoredPosition: {x: -9.5, y: 27.5}
+  m_SizeDelta: {x: -196, y: 58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1668411462
 MonoBehaviour:
@@ -55581,7 +55444,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.95
+  m_fontSize: 24.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -57303,10 +57166,10 @@ RectTransform:
   - {fileID: 452317518}
   m_Father: {fileID: 1297676089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.13900001, y: 0.27386725}
-  m_AnchorMax: {x: 0.86300004, y: 0.36115634}
-  m_AnchoredPosition: {x: -0.5, y: 5.5}
-  m_SizeDelta: {x: -17, y: -31}
+  m_AnchorMin: {x: 0.15300001, y: 0.33345404}
+  m_AnchorMax: {x: 0.85, y: 0.33345404}
+  m_AnchoredPosition: {x: -1, y: -4.5}
+  m_SizeDelta: {x: 4, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1716748165
 MonoBehaviour:
@@ -58728,10 +58591,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1297676089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1478097, y: 0.14715633}
-  m_AnchorMax: {x: 0.85773015, y: 0.279}
-  m_AnchoredPosition: {x: -1.500061, y: -0}
-  m_SizeDelta: {x: -209, y: -27}
+  m_AnchorMin: {x: 0.15300001, y: 0.127}
+  m_AnchorMax: {x: 0.85773015, y: 0.127}
+  m_AnchoredPosition: {x: -12, y: 28.5}
+  m_SizeDelta: {x: -205, y: 58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1770146144
 MonoBehaviour:
@@ -58780,7 +58643,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.8
+  m_fontSize: 24.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -64938,7 +64801,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.3
+  m_fontSize: 23.75
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

@@ -51,12 +51,12 @@ MonoBehaviour:
   weights: 01000000
   spawnSurface:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   avoidMask:
     serializedVersion: 2
-    m_Bits: 1553
-  minSpawn: 3
-  maxSpawn: 6
+    m_Bits: 1552
+  minSpawn: 5
+  maxSpawn: 9
 --- !u!135 &4890038290328697605
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -72,11 +72,11 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 16
+  m_Radius: 38
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5752952466783015741
 GameObject:

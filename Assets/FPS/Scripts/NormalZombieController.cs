@@ -141,7 +141,6 @@ public class NormalZombieController : MonoBehaviour
         if (isDead) return;
 
         nextAttackTime = Time.time + attackCooldown;
-        animator.SetTrigger("Attack");
         animator.SetBool("Moving", false);
 
         StartCoroutine(ThrowAttack());
@@ -159,6 +158,7 @@ public class NormalZombieController : MonoBehaviour
             animator.SetBool("Moving", true);
             yield break;
         }
+        animator.SetTrigger("Attack");
 
         Health player = target.GetComponentInParent<Health>();
         if (player != null)

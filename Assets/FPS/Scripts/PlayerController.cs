@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class PlayerController : MonoBehaviour
 {
@@ -94,17 +95,23 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 0f;
         FPSUI.Instance.ChangeMenu(2); 
     }
+    
+    void Update()
+    {
+        MovePlayer();
+    }
 
     void FixedUpdate()
     {
         CheckGround();
-        MovePlayer();
 
         if (rb.linearVelocity.sqrMagnitude <= 0.5f) {
             animator.SetBool("Moving", false);
         } else {
             animator.SetBool("Moving", true);
         }
+
+        if (isRunning) stamina -= 1;
 
         if (!isRunning && stamina < maxStamina)
         {
@@ -128,7 +135,7 @@ public class PlayerController : MonoBehaviour
     void OnRun()
     {
         if (Time.timeScale == 0) return;
-        if (isGrounded && stamina > 0)
+        if (isGrounded && stamina > maxStamina/2)
         {
             animator.SetBool("Running", true);
             isRunning = true;
@@ -172,15 +179,16 @@ public class PlayerController : MonoBehaviour
     void OnLook(InputValue inputValue)
     {
         if (Time.timeScale == 0f) return;
-        Vector2 tmp = inputValue.Get<Vector2>();
+        //Vector2 tmp = inputValue.Get<Vector2>();
+        lookInput = inputValue.Get<Vector2>();
 
-        float mouseX = tmp.x * mouseSensitivity;
-        float mouseY = tmp.y * mouseSensitivity;
+        //float mouseX = tmp.x * mouseSensitivity;
+        //float mouseY = tmp.y * mouseSensitivity;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90, 90);
-        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
+        //xRotation -= mouseY;
+        //xRotation = Mathf.Clamp(xRotation, -90, 90);
+        //playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        //transform.Rotate(Vector3.up * mouseX);
     }
 
     void OnToggleLight()
@@ -231,10 +239,10 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
+        if (Time.timeScale == 0f) return;
+
         Vector3 direction = transform.right * moveInput.x + transform.forward * moveInput.y;
         direction.Normalize();
-
-        if (isRunning) stamina -= 1;
 
         if (stamina < 0)
         {
@@ -246,5 +254,14 @@ public class PlayerController : MonoBehaviour
         float movementSpeed = isRunning ? runSpeed : moveSpeed;
         if (isZoomed) movementSpeed *= 0.4f;
         rb.linearVelocity = new Vector3(direction.x * movementSpeed, rb.linearVelocity.y, direction.z * movementSpeed);
+
+
+        float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
+        float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;
+
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90, 90);
+        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        transform.Rotate(Vector3.up * mouseX);
     }
 }

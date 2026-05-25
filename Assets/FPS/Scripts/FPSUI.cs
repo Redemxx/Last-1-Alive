@@ -78,8 +78,8 @@ public class FPSUI : MonoBehaviour
             ammo.text = "0/0";
         }
 
-        healthKits.text = "Health Kits: " + playerController.healthPacks + " (H)";
-        grenades.text = "Grenades: " + playerShooting.grenades + " (G)";
+        healthKits.text = "Health Kits: " + playerController.healthPacks;
+        grenades.text = "Grenades: " + playerShooting.grenades;
     }
 
     public void ShowMessage(string message, float duration = 10f)

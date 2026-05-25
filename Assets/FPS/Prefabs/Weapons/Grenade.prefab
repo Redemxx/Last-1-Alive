@@ -5133,9 +5133,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   explosionRadius: 7.5
   explosionForce: 1400
-  fuseTime: 6
-  throwForce: 34
-  throwChargeTime: 2
+  fuseTime: 4
+  throwForce: 24
+  throwChargeTime: 1
   pullBackDistance: 0.12
   pinPullSound: {fileID: 8300000, guid: 75572fccfab0989468c5ddee5754c744, type: 3}
   explosionSound: {fileID: 8300000, guid: ce72f30de07c4ff40af1e6082a39d0ea, type: 3}

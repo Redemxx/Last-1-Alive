@@ -225,8 +225,9 @@ public class PlayerShooting : MonoBehaviour
     {
         if (Time.timeScale == 0) return;
         if (gun == null) return;
+        if (!gun.CheckCooldown()) return;
 
-        gun.TryReload();
+            gun.TryReload();
         OnZoomEnd();
     }
 

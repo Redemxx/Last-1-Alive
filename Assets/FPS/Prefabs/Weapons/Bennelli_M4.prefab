@@ -112,7 +112,7 @@ MonoBehaviour:
   fireRate: 2
   magPullDistance: 0.3
   magPullDirection: {x: 0, y: 0, z: -1}
-  baseDamage: 14
+  baseDamage: 10
   falloffFactor: 0.02
   penetration: 1
   concurrentBullets: 5
